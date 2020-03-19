@@ -1,2 +1,3 @@
-# -wangzhiloong.github.io
-使用hugo搭建的个人博客
+# wangzhiloong.github.io
+个人博客，记录成长点点滴滴
+https://www.wangzhiloong.com/
