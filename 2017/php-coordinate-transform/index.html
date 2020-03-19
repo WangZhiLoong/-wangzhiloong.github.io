@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="王志龙">
+  <meta name="description" content="技术历程记录，技术学习记录">
+  <meta name="keywords" content="技术博客，Linux，PHP，Mysql，Docker">
+  
+  <link rel="prev" href="https://www.wangzhiloong.com/2017/mac-evn-config/" />
+  <link rel="next" href="https://www.wangzhiloong.com/2017/office-content-type/" />
+  <link rel="canonical" href="https://www.wangzhiloong.com/2017/php-coordinate-transform/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           PHP 火星坐标、百度坐标转换、地球坐标转换 | 随笔漫谈
+       
+  </title>
+  <meta name="title" content="PHP 火星坐标、百度坐标转换、地球坐标转换 | 随笔漫谈">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/www.wangzhiloong.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "PHP 火星坐标、百度坐标转换、地球坐标转换",
+    "headline" : "PHP 火星坐标、百度坐标转换、地球坐标转换",
+    "description" : "一、知识点： 坐标系分类：国际经纬度坐标WGS84、火星系坐标GCJ-02、百度坐标系BG-09\n   类型 说明 使用者     WGS84 美国GPS 国际通用，如谷歌国外地图、osm地图   火星系GCJ-02 国测局制定的标准，国内地图必须至少使用此对位置进行首次加密 高德地图、腾讯搜搜地图、阿里云地图、灵图51ditu地图、谷歌中国地图   BG-09 百度在GCJ-02标准基础上进行二次加密 百度地图    二、PHP实现方法 共有两个类，Coordinate和CoordinateTool。 Coordinate，坐标点对象：\nclass Coordinate { public $x = 0; public $y = 0; \/** * Coordinate constructor. * @param $lon float 经度 * @param $lat float 纬度 *\/ public function __construct ($lon,$lat) { $this-\x26gt;x = $lon; $this-\x26gt;y = $lat; } } CoordinateTool ，坐标转换工具类：",
+    "inLanguage" : "",
+    "author" : "王志龙",
+    "creator" : "王志龙",
+    "publisher": "王志龙",
+    "accountablePerson" : "王志龙",
+    "copyrightHolder" : "王志龙",
+    "copyrightYear" : "2017",
+    "datePublished": "2017-04-22 00:00:00 \x2b0000 UTC",
+    "dateModified" : "2017-04-22 00:00:00 \x2b0000 UTC",
+    "url" : "https:\/\/www.wangzhiloong.com\/2017\/php-coordinate-transform\/",
+    "wordCount" : "687",
+    "keywords" : [ "php","坐标转换", "随笔漫谈"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://www.wangzhiloong.com/">随笔漫谈</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">文章</a>
+                
+                <a class="menu-item" href="/categories/" title="">分类</a>
+                
+                <a class="menu-item" href="/tags/" title="">标签</a>
+                
+                <a class="menu-item" href="/about/" title="">关于我</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://www.wangzhiloong.com/">随笔漫谈</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">文章</a>
+                
+                <a class="menu-item" href="/categories/" title="">分类</a>
+                
+                <a class="menu-item" href="/tags/" title="">标签</a>
+                
+                <a class="menu-item" href="/about/" title="">关于我</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">PHP 火星坐标、百度坐标转换、地球坐标转换</h1>
+        <div class="post-meta">
+                写于
+                <span class="post-time">
+                <time datetime=2017-04-22 itemprop="datePublished">2017-04-22</time>
+                </span>
+                ·
+                分类： 
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://www.wangzhiloong.com/categories/php/"> PHP </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h2 id="一知识点">一、知识点：</h2>
+<p>坐标系分类：国际经纬度坐标WGS84、火星系坐标GCJ-02、百度坐标系BG-09</p>
+<table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">说明</th>
+<th align="center">使用者</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">WGS84</td>
+<td align="center">美国GPS</td>
+<td align="center">国际通用，如谷歌国外地图、osm地图</td>
+</tr>
+<tr>
+<td align="center">火星系GCJ-02</td>
+<td align="center">国测局制定的标准，国内地图必须至少使用此对位置进行首次加密</td>
+<td align="center">高德地图、腾讯搜搜地图、阿里云地图、灵图51ditu地图、谷歌中国地图</td>
+</tr>
+<tr>
+<td align="center">BG-09</td>
+<td align="center">百度在GCJ-02标准基础上进行二次加密</td>
+<td align="center">百度地图</td>
+</tr>
+</tbody>
+</table>
+<h2 id="二php实现方法">二、PHP实现方法</h2>
+<p>共有两个类，Coordinate和CoordinateTool。
+Coordinate，坐标点对象：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">class Coordinate
+{
+    public $x = 0;
+    public $y = 0;
+    /**
+     * Coordinate constructor.
+     * @param $lon float 经度
+     * @param $lat float 纬度
+     */
+    public function __construct ($lon,$lat)
+    {
+        $this-&gt;x = $lon;
+        $this-&gt;y = $lat;
+    }
+}
+</code></pre></div><p>CoordinateTool ，坐标转换工具类：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">
+define(&#39;X_PI&#39;,3.14159265358979324 * 3000.0 / 180.0);
+class CoordinateTool
+{
+    private static $pi = 3.14159265358979324;  // 圆周率
+    private static $a = 6378245.0; // WGS 长轴半径
+    private static $ee = 0.00669342162296594323; // WGS 偏心率的平方
+    /**
+     * 将火星坐标系GCJ-02 坐标 转换成百度坐标系 BD-09 坐标
+     * @param $gc_loc 火星坐标点(Class Coordinate)
+     * @return $bg_loc Coordinate对象，百度地图经纬度坐标
+     */
+    public static function gcj_bd($gc_loc)
+    {
+        $x_pi = X_PI;
+        $x = $gc_loc-&gt;x;
+        $y = $gc_loc-&gt;y;
+        $z = sqrt($x * $x + $y * $y) + 0.00002 * sin($y * $x_pi);
+        $theta = atan2($y, $x) + 0.000003 * cos($x * $x_pi);
+        $bd_x = $z * cos($theta) + 0.0065;
+        $bd_y = $z * sin($theta) + 0.006;
+        $bg_loc = new Coordinate($bd_x,$bd_y);
+        return $bg_loc;
+    }
+    /**
+     * 将百度坐标系 BD-09 坐标 转换成 火星坐标系GCJ-02 坐标
+     * @param $bd_loc 火星坐标点(Class Coordinate)
+     *  @return $bg_loc Coordinate对象，火星坐标系经纬度坐标
+     */
+    public static function bd_gcj($bd_loc)
+    {
+        $x_pi = X_PI;
+        $x = $bd_loc-&gt;x - 0.0065;
+        $y = $bd_loc-&gt;y - 0.006;
+        $z = sqrt($x * $x + $y * $y) - 0.00002 * sin($y * $x_pi);
+        $theta = atan2($y, $x) - 0.000003 * cos($x * $x_pi);
+        $gc_x = $z * cos($theta);
+        $gc_y = $z * sin($theta);
+        $gc_loc = new Coordinate($gc_x,$gc_y);
+        return $gc_loc;
+    }
+    /**
+     * 将国际通用坐标系WGS84坐标 转换成 火星坐标系GCJ-02 坐标
+     * @param $wgs_loc WGS84坐标点(Class Coordinate)
+     *  @return $bg_loc Coordinate对象，火星坐标系经纬度坐标
+     */
+    public static function wgs_gcj($wgs_loc)
+    {
+        $wgs_lon = $wgs_loc-&gt;x;
+        $wgs_lat = $wgs_loc-&gt;y;
+
+        if (self::outOfChina($wgs_lon,$wgs_lat)){
+            return (new Coordinate($wgs_lon,$wgs_lat));
+        }
+        $x_pi = X_PI;
+        $dLat = self::transformLat($wgs_lon - 105.0, $wgs_lat - 35.0);
+        $dLon = self::transformLon($wgs_lon - 105.0, $wgs_lat - 35.0);
+        $radLat = $wgs_lat / 180.0 * $x_pi;
+        $magic = sin($radLat);
+        $magic = 1 - self::$ee * $magic * $magic;
+        $sqrtMagic = sqrt($magic);
+        $dLat = ($dLat * 180.0) / ((self::$a * (1 - self::$ee)) / ($magic * $sqrtMagic) * self::$pi);
+        $dLon = ($dLon * 180.0) / (self::$a / $sqrtMagic * cos($radLat) * self::$pi);
+
+        $mgLat = $wgs_lat + $dLat;
+        $mgLon = $wgs_lon + $dLon;
+
+        $gcj_loc = new Coordinate($mgLon,$mgLat);
+        return $gcj_loc;
+    }
+    /**
+     * 将火星坐标系GCJ-02坐标 转换成 国际通用坐标系WGS84坐标
+     * @param $gcj_loc GCJ-02坐标点(Class Coordinate)
+     *  @return $wgs_loc Coordinate对象，国际通用坐标系WGS84坐标
+     */
+    public static function gcj_wgs($gcj_loc)
+    {
+        $to = self::wgs_gcj($gcj_loc);
+        $lon = $gcj_loc-&gt;x;
+        $lat = $gcj_loc-&gt;y;
+        $gcl_lon = $to-&gt;x;
+        $gcl_lat = $to-&gt;y;
+        $d_lat = $gcl_lat - $lat;
+        $d_lon = $gcl_lon - $lon;
+        return new Coordinate($lon - $d_lon,$lat - $d_lat);
+    }
+
+
+    private static function outOfChina($lon,$lat)
+    {
+        if ($lon &lt; <span style="color:#f92672">72.004</span> <span style="color:#960050;background-color:#1e0010">|</span><span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#a6e22e">lon</span> &gt; 137.8347)
+            return true;
+        if ($lat &lt; <span style="color:#f92672">0.8293</span> <span style="color:#960050;background-color:#1e0010">|</span><span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#a6e22e">lat</span> &gt; 55.8271)
+            return true;
+
+        return false;
+    }
+    private static function transformLat($x,$y)
+    {
+        $ret = -100.0 + 2.0 * $x + 3.0 * $y + 0.2 * $y * $y + 0.1 * $x * $y + 0.2 * sqrt(abs($x));
+        $ret += (20.0 * sin(6.0 * $x * self::$pi) + 20.0 * sin(2.0 * $x * self::$pi)) * 2.0 / 3.0;
+        $ret += (20.0 * sin($y * self::$pi) + 40.0 * sin($y / 3.0 * self::$pi)) * 2.0 / 3.0;
+        $ret += (160.0 * sin($y / 12.0 * self::$pi) + 320 * sin($y * self::$pi / 30.0)) * 2.0 / 3.0;
+        return $ret;
+    }
+
+    private static function transformLon($x, $y)
+    {
+        $ret = 300.0 + $x + 2.0 * $y + 0.1 * $x * $x + 0.1 * $x * $y + 0.1 * sqrt(abs($x));
+        $ret += (20.0 * sin(6.0 * $x * self::$pi) + 20.0 * sin(2.0 * $x * self::$pi)) * 2.0 / 3.0;
+        $ret += (20.0 * sin($x * self::$pi) + 40.0 * sin($x / 3.0 * self::$pi)) * 2.0 / 3.0;
+        $ret += (150.0 * sin($x / 12.0 * self::$pi) + 300.0 * sin($x / 30.0 * self::$pi)) * 2.0 / 3.0;
+
+        return $ret;
+    }
+}
+</code></pre></div><h2 id="三坐标转换">三、坐标转换</h2>
+<p>在controller层调用</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">//将火星坐标系GCJ-02 坐标 转换成百度坐标系 BD-09 坐标
+$coordinate = new Coordinate(113.3998,34.5443)； //吃货天堂的坐标
+$coord = CoordinateTool::gcj_bd($coordinate);
+
+//将百度坐标系 BD-09 坐标 转换成 火星坐标系GCJ-02 坐标
+$coordinate = new Coordinate(113.3996,34.543)；
+$coord = CoordinateTool::bd_gcj($coordinate);
+
+//将国际通用坐标系WGS84坐标 转换成 火星坐标系GCJ-02 坐标
+$coordinate = new Coordinate(113.3924,34.54036)；
+$coord = CoordinateTool::wgs_gcj($coordinate);
+
+//将火星坐标系GCJ-02坐标 转换成 国际通用坐标系WGS84坐标
+$coordinate = new Coordinate(113.3998,34.5443)；
+$coord = CoordinateTool::gcj_wgs($coordinate);
+</code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>文章作者： </span>
+                <span>王志龙 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>链接：</span>
+                    <a href=https://www.wangzhiloong.com/2017/php-coordinate-transform/>https://www.wangzhiloong.com/2017/php-coordinate-transform/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>标签: 
+            
+            <span class="tag"><a href="https://www.wangzhiloong.com/tags/php/">
+                    #php</a></span>
+            
+            <span class="tag"><a href="https://www.wangzhiloong.com/tags/%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2/">
+                    #坐标转换</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">返回</a></span> · 
+                <span><a href="https://www.wangzhiloong.com/">首页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://www.wangzhiloong.com/2017/mac-evn-config/" class="prev" rel="prev" title="Mac环境配置"><i class="iconfont icon-left"></i>&nbsp;Mac环境配置</a>
+         
+        
+        <a href="https://www.wangzhiloong.com/2017/office-content-type/" class="next" rel="next" title="office 所有后缀对应的 content-type">office 所有后缀对应的 content-type&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2017 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://www.wangzhiloong.com/">王志龙</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> &  Theme - <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

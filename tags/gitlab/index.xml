@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>gitlab on 随笔漫谈</title>
+    <link>https://www.wangzhiloong.com/tags/gitlab/</link>
+    <description>Recent content in gitlab on 随笔漫谈</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 17 Jan 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.wangzhiloong.com/tags/gitlab/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Docker安装Gitlab</title>
+      <link>https://www.wangzhiloong.com/2020/docker-gitlab-install/</link>
+      <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2020/docker-gitlab-install/</guid>
+      <description>一、 安装   docker安装
+  拉取镜像 docker pull gitlab/gitlab-ce:rc
+  使用docker-file创建容器
+##docker file version: &amp;#34;3&amp;#34; services: gitlab: image: &amp;#39;gitlab/gitlab-ce:rc&amp;#39; restart: always hostname: &amp;#39;git.abc.com&amp;#39; environment: GITLAB_OMNIBUS_CONFIG: | external_url &amp;#39;http://git.abc.com&amp;#39; gitlab_rails[&amp;#39;gitlab_shell_ssh_port&amp;#39;] = 2228 ports: - &amp;#39;127.0.0.1:8000:80&amp;#39; - &amp;#39;2228:22&amp;#39; volumes: - &amp;#39;/data/gitlab/config:/etc/gitlab&amp;#39; - &amp;#39;/data/gitlab/logs:/var/log/gitlab&amp;#39; - &amp;#39;/data/gitlab/data:/var/opt/gitlab&amp;#39; - &amp;#39;/etc/localtime:/etc/localtime:ro&amp;#39; ##项目启动命令## # docker-compose -f docker-gitlab-compose.yml -p gitlab up -d ##项目停止命令## # docker-compose -f docker-gitlab-compose.yml -p gitlab down     主机安装</description>
+    </item>
+    
+  </channel>
+</rss>

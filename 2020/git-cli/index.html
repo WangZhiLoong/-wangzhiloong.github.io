@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="王志龙">
+  <meta name="description" content="技术历程记录，技术学习记录">
+  <meta name="keywords" content="技术博客，Linux，PHP，Mysql，Docker">
+  
+  <link rel="prev" href="https://www.wangzhiloong.com/2020/jumpserver-centos7/" />
+  <link rel="next" href="https://www.wangzhiloong.com/2020/docker-php/" />
+  <link rel="canonical" href="https://www.wangzhiloong.com/2020/git-cli/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           Git 使用技巧 | 随笔漫谈
+       
+  </title>
+  <meta name="title" content="Git 使用技巧 | 随笔漫谈">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/www.wangzhiloong.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "Git 使用技巧",
+    "headline" : "Git 使用技巧",
+    "description" : "git是什么  Git 是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。\nGit 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件（两周开发出来的）。\nGit 与常用的版本控制工具 CVS, Subversion 等不同，它采用了分布式版本库的方式，不必服务器端软件支持。\nGit是目前世界上最先进的分布式版本控制系统。\n 为什么用git  1、Git 是分布式的，SVN 不是：这是 Git 和其它非分布式的版本控制系统，例如 SVN，CVS 等，最核心的区别。\n2、Git 把内容按元数据方式存储，而 SVN 是按文件： 所有的资源控制系统都是把文件的元信息隐藏在一个类似 .svn、.cvs 等的文件夹里。\n3、Git 分支和 SVN 的分支不同： 分支在 SVN 中一点都不特别，其实它就是版本库中的另外一个目录。\n4、Git 没有一个全局的版本号，而 SVN 有： 目前为止这是跟 SVN 相比 Git 缺少的最大的一个特征。\n5、Git 的内容完整性要优于 SVN： Git 的内容存储使用的是 SHA-1 哈希算法。这能确保代码内容的完整性，确保在遇到磁盘故障和网络问题时降低对版本库的破坏。\n这么牛逼，为什么不用呢？\n 怎么用git   git常用方法\n 两种方式使用：\nhttp(https)方式：克隆项目时使用http(https)协议，需要输入gitlab的用户名和密码，不建议使用（每次push也都需要输入，比较麻烦，不过大多git客户端支持记录密码）。\nssh方式：克隆项目时使用ssh协议，需要先在本机创建公钥，然后将公钥填充到gitlab\x26ndash;\x26gt;个人设置-\x26gt;SSH Keys中。建议采用此方式，一劳永逸（除非换电脑）。\n   初次使用git的配置",
+    "inLanguage" : "",
+    "author" : "王志龙",
+    "creator" : "王志龙",
+    "publisher": "王志龙",
+    "accountablePerson" : "王志龙",
+    "copyrightHolder" : "王志龙",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-02-04 16:44:28 \x2b0800 CST",
+    "dateModified" : "2020-02-04 16:44:28 \x2b0800 CST",
+    "url" : "https:\/\/www.wangzhiloong.com\/2020\/git-cli\/",
+    "wordCount" : "274",
+    "keywords" : [ "git", "随笔漫谈"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://www.wangzhiloong.com/">随笔漫谈</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">文章</a>
+                
+                <a class="menu-item" href="/categories/" title="">分类</a>
+                
+                <a class="menu-item" href="/tags/" title="">标签</a>
+                
+                <a class="menu-item" href="/about/" title="">关于我</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://www.wangzhiloong.com/">随笔漫谈</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">文章</a>
+                
+                <a class="menu-item" href="/categories/" title="">分类</a>
+                
+                <a class="menu-item" href="/tags/" title="">标签</a>
+                
+                <a class="menu-item" href="/about/" title="">关于我</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Git 使用技巧</h1>
+        <div class="post-meta">
+                写于
+                <span class="post-time">
+                <time datetime=2020-02-04 itemprop="datePublished">2020-02-04</time>
+                </span>
+                ·
+                分类： 
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://www.wangzhiloong.com/categories/linux/"> Linux </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+            
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h2 id="git是什么">git是什么</h2>
+<blockquote>
+<p>Git 是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。</p>
+<p>Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件（两周开发出来的）。</p>
+<p>Git 与常用的版本控制工具 CVS, Subversion 等不同，它采用了<strong>分布式版本库</strong>的方式，不必服务器端软件支持。</p>
+<p>Git是目前世界上最先进的分布式版本控制系统。</p>
+</blockquote>
+<h2 id="为什么用git">为什么用git</h2>
+<blockquote>
+<p><strong>1、Git 是分布式的，SVN 不是</strong>：这是 Git 和其它非分布式的版本控制系统，例如 SVN，CVS 等，最核心的区别。</p>
+<p><strong>2、Git 把内容按元数据方式存储，而 SVN 是按文件：</strong> 所有的资源控制系统都是把文件的元信息隐藏在一个类似 .svn、.cvs 等的文件夹里。</p>
+<p><strong>3、Git 分支和 SVN 的分支不同：</strong> 分支在 SVN 中一点都不特别，其实它就是版本库中的另外一个目录。</p>
+<p><strong>4、Git 没有一个全局的版本号，而 SVN 有：</strong> 目前为止这是跟 SVN 相比 Git 缺少的最大的一个特征。</p>
+<p><strong>5、Git 的内容完整性要优于 SVN：</strong> Git 的内容存储使用的是 SHA-1 哈希算法。这能确保代码内容的完整性，确保在遇到磁盘故障和网络问题时降低对版本库的破坏。</p>
+<p>这么牛逼，为什么不用呢？</p>
+</blockquote>
+<h2 id="怎么用git">怎么用git</h2>
+<ul>
+<li>
+<p>git常用方法</p>
+<blockquote>
+<p>两种方式使用：</p>
+<p>http(https)方式：克隆项目时使用http(https)协议，需要输入gitlab的用户名和密码，不建议使用（每次push也都需要输入，比较麻烦，不过大多git客户端支持记录密码）。</p>
+<p>ssh方式：克隆项目时使用ssh协议，需要先在本机创建公钥，然后将公钥填充到gitlab&ndash;&gt;个人设置-&gt;SSH Keys中。建议采用此方式，一劳永逸（除非换电脑）。</p>
+</blockquote>
+</li>
+<li>
+<p>初次使用git的配置</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">##########本地git配置##########</span>
+当安装完 Git 应该做的第一件事就是设置你的用户名称与邮件地址。 这样做很重要，因为每一个 Git 的提交都会使用这些信息，并且它会写入到你的每一次提交中，不可更改：
+  
+<span style="color:#75715e">##方式一：</span>
+git config --global user.name <span style="color:#e6db74">&#34;你的名字&#34;</span>
+git config --global user.email <span style="color:#e6db74">&#34;你的邮箱&#34;</span>
+  
+<span style="color:#75715e">#方式二：将如下内容保存到:$HOME\.gitconfig中.</span>
+<span style="color:#f92672">[</span>user<span style="color:#f92672">]</span>
+    name <span style="color:#f92672">=</span> 你的名字
+    email <span style="color:#f92672">=</span> 你的邮箱
+  
+<span style="color:#75715e">###git提交模板设置,gitcommit_template</span>
+<span style="color:#75715e">##设置提交模板格式，编辑$HOME\gitcommit_template，写入如下内容：</span>
+--------------------------------------------------------
+<span style="color:#75715e"># ==[ 提交总结：简要描述本次提交，要求限制在25个字以内，描述完后下面空一行 ]=====|</span>
+
+
+<span style="color:#75715e"># ==[ 提交原因：新功能/Bug fix ]=================================================|</span>
+<span style="color:#f92672">[</span>提交原因<span style="color:#f92672">]</span>
+<span style="color:#75715e"># ==[ 详细描述：新功能提交时使用 ]===============================================|</span>
+<span style="color:#f92672">[</span>详细描述<span style="color:#f92672">]</span>
+<span style="color:#75715e"># ==[ Bug ID：针对Bug，填写BugID，未记录的bug填写“未记录的问题” ]====|</span>
+<span style="color:#75715e"># ==[ 多个BugID用空格分开 ]======================================================|</span>
+<span style="color:#f92672">[</span>Bug ID<span style="color:#f92672">]</span>
+<span style="color:#75715e"># ==[ Bug 原因：描述Bug产生的原因 ]==============================================|</span>
+<span style="color:#f92672">[</span>Bug 原因<span style="color:#f92672">]</span>
+<span style="color:#75715e"># ==[ 解决方法：针对Bug ]========================================================|</span>
+<span style="color:#f92672">[</span>解决方法<span style="color:#f92672">]</span>
+<span style="color:#75715e"># ==[ 其它：描述其它关联情况或需特殊说明的问题等 ]===============================|</span>
+<span style="color:#f92672">[</span>其它<span style="color:#f92672">]</span>
+  
+--------------------------------------------------------
+  
+<span style="color:#75715e">##设置提交模板</span>
+git config --global commit.template /Users/loong/.git_template
+</code></pre></div></li>
+<li>
+<p>ssh方式认证gitlab</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">##########ssh认证配置##########</span>
+<span style="color:#75715e">#1.本机电脑打开gitbash，生成ssh登录的公钥和私钥</span>
+ssh-keygen -t ed25519 -C <span style="color:#e6db74">&#34;email@example.com&#34;</span> <span style="color:#75715e">#直接使用ssh-keygen也可以，默认rsa加密类型</span>
+<span style="color:#75715e">#2.一路回车即可,中间会提示输入秘钥密码，可以不填，如果填写，push时需要输入此密码。</span>
+  
+<span style="color:#75715e">#3.进入到创建密钥过程中提示保存的目录中，打开.pub文件结尾的文件，复制</span>
+  
+<span style="color:#75715e">#4. gitlab公钥配置：将3中复制的内容粘贴到 gitlab--&gt; 右上角用户头像--&gt; 设置--&gt; SSH Keys--&gt;key中，填写标题并保存。</span>
+</code></pre></div></li>
+</ul>
+<h2 id="奇淫巧技">奇淫巧技</h2>
+<ul>
+<li>
+<p>git stash</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">常用git stash命令：
+（1）git stash save <span style="color:#e6db74">&#34;save message&#34;</span>  : 执行存储时，添加备注，方便查找，只有git stash 也要可以的，但查找时不方便识别。
+    
+（2）git stash list  ：查看stash了哪些存储
+    
+（3）git stash show ：显示做了哪些改动，默认show第一个存储,如果要显示其他存贮，后面加stash@<span style="color:#f92672">{</span>$num<span style="color:#f92672">}</span>，比如第二个 git stash show stash@<span style="color:#f92672">{</span>1<span style="color:#f92672">}</span>
+    
+（4）git stash show -p : 显示第一个存储的改动，如果想显示其他存存储，命令：git stash show  stash@<span style="color:#f92672">{</span>$num<span style="color:#f92672">}</span>  -p ，比如第二个：git stash show  stash@<span style="color:#f92672">{</span>1<span style="color:#f92672">}</span>  -p
+    
+（5）git stash apply :应用某个存储,但不会把存储从存储列表中删除，默认使用第一个存储,即stash@<span style="color:#f92672">{</span>0<span style="color:#f92672">}</span>，如果要使用其他个，git stash apply stash@<span style="color:#f92672">{</span>$num<span style="color:#f92672">}</span> ， 比如第二个：git stash apply stash@<span style="color:#f92672">{</span>1<span style="color:#f92672">}</span> 
+    
+（6）git stash pop ：命令恢复之前缓存的工作目录，将缓存堆栈中的对应stash删除，并将对应修改应用到当前的工作目录下,默认为第一个stash,即stash@<span style="color:#f92672">{</span>0<span style="color:#f92672">}</span>，如果要应用并删除其他stash，命令：git stash pop stash@<span style="color:#f92672">{</span>$num<span style="color:#f92672">}</span> ，比如应用并删除第二个：git stash pop stash@<span style="color:#f92672">{</span>1<span style="color:#f92672">}</span>
+    
+（7）git stash drop stash@<span style="color:#f92672">{</span>$num<span style="color:#f92672">}</span> ：丢弃stash@<span style="color:#f92672">{</span>$num<span style="color:#f92672">}</span>存储，从列表中删除这个存储
+    
+（8）git stash clear ：删除所有缓存的stash
+</code></pre></div></li>
+<li>
+<p>git 挑选部分提交进行合并</p>
+<p><code> git  cherry-pick commitid</code></p>
+</li>
+<li>
+<p>git分支合并保留源分支的提交记录</p>
+<p><code>git rebase</code></p>
+</li>
+<li>
+<p>gitignore妙用，参考<a href="https://github.com/github/gitignore">github维护的忽略文件集</a></p>
+</li>
+<li>
+<p>git 代码合并三种方式</p>
+<ul>
+<li>git merge 分支名</li>
+</ul>
+<p><img src="/images/linux/git-merge.png" alt="git-merge介绍"></p>
+<ul>
+<li>
+<p>git pull （git fetch &amp;&amp; git megre）</p>
+<p>用于拉取关联的远程分支提交记录，并合并。</p>
+</li>
+<li>
+<p>git rebase</p>
+<p>可用于合并本地分支（git rebase 分支）、也可以合并远程分支（git fetch &amp;&amp; git rebase  ），如有冲突，解决冲突后，使用 <code>git rebase --continue</code> 执行 rebase 操作。</p>
+</li>
+<li>
+<p>几个浏览器插件推荐，遗憾的是只支持github</p>
+<ul>
+<li><a href="https://github.com/ovity/octotree">octotree</a></li>
+<li><a href="https://github.com/buunguyen/octotree">GitCodeTree</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="命令速查">命令速查</h2>
+<p><img src="/images/linux/git-cli.jpg" alt="命令速查"></p>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>文章作者： </span>
+                <span>王志龙 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>链接：</span>
+                    <a href=https://www.wangzhiloong.com/2020/git-cli/>https://www.wangzhiloong.com/2020/git-cli/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>标签: 
+            
+            <span class="tag"><a href="https://www.wangzhiloong.com/tags/git/">
+                    #git</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">返回</a></span> · 
+                <span><a href="https://www.wangzhiloong.com/">首页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://www.wangzhiloong.com/2020/jumpserver-centos7/" class="prev" rel="prev" title="Jumpserver在Centos7部署"><i class="iconfont icon-left"></i>&nbsp;Jumpserver在Centos7部署</a>
+         
+        
+        <a href="https://www.wangzhiloong.com/2020/docker-php/" class="next" rel="next" title="Docker部署php">Docker部署php&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2017 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://www.wangzhiloong.com/">王志龙</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> &  Theme - <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+     <link href="//lib.baomitu.com/lightgallery/1.6.11/css/lightgallery.min.css" rel="stylesheet">  
+      
+     <script src="/js/vendor_gallery.min.js" async="" ></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

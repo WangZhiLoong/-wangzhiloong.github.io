@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>使用环境 on 随笔漫谈</title>
+    <link>https://www.wangzhiloong.com/tags/%E4%BD%BF%E7%94%A8%E7%8E%AF%E5%A2%83/</link>
+    <description>Recent content in 使用环境 on 随笔漫谈</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 21 Apr 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.wangzhiloong.com/tags/%E4%BD%BF%E7%94%A8%E7%8E%AF%E5%A2%83/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Mac环境配置</title>
+      <link>https://www.wangzhiloong.com/2017/mac-evn-config/</link>
+      <pubDate>Fri, 21 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2017/mac-evn-config/</guid>
+      <description>命令行开发工具安装 xcode-select --install
+ 命令安装路径：/Library/Developer/CommandLineTools/usr/bin 安装命令列表： 2to3 2to3-3.7 DeRez GetFileInfo ResMerger Rez SetFile SplitForks ar as asa bison bitcode_strip c++ c89 c99 cc clang clang++ cmpdylib codesign_allocate codesign_allocate-p cpp ctags ctf_insert dsymutil dwarfdump dwarfdump-classic dyldinfo easy_install-3.7 flex flex++ g++ gatherheaderdoc gcc gcov git git-receive-pack git-shell git-upload-archive git-upload-pack gm4 gnumake gperf hdxml2manxml headerdoc2html indent install_name_tool ld lex libtool lipo lldb llvm-cov llvm-dwarfdump llvm-nm llvm-objdump llvm-otool llvm-profdata llvm-size lorder m4 make mig nm nm-classic nmedit objdump otool otool-classic pagestuff pip3 pip3.</description>
+    </item>
+    
+  </channel>
+</rss>

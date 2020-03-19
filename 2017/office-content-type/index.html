@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="王志龙">
+  <meta name="description" content="技术历程记录，技术学习记录">
+  <meta name="keywords" content="技术博客，Linux，PHP，Mysql，Docker">
+  
+  <link rel="prev" href="https://www.wangzhiloong.com/2017/php-coordinate-transform/" />
+  <link rel="next" href="https://www.wangzhiloong.com/2018/mysql-show-cli/" />
+  <link rel="canonical" href="https://www.wangzhiloong.com/2017/office-content-type/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           office 所有后缀对应的 content-type | 随笔漫谈
+       
+  </title>
+  <meta name="title" content="office 所有后缀对应的 content-type | 随笔漫谈">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/www.wangzhiloong.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "office 所有后缀对应的 content-type",
+    "headline" : "office 所有后缀对应的 content-type",
+    "description" : "后缀 MIME Type     .doc application\/msword   .dot application\/msword   .docx application\/vnd.openxmlformats-officedocument.wordprocessingml.document   .dotx application\/vnd.openxmlformats-officedocument.wordprocessingml.template   .docm application\/vnd.ms-word.document.macroEnabled.12   .dotm application\/vnd.ms-word.template.macroEnabled.12   .xls application\/vnd.ms-excel   .xlt application\/vnd.ms-excel   .xla application\/vnd.ms-excel   .xlsx application\/vnd.openxmlformats-officedocument.spreadsheetml.sheet   .xltx application\/vnd.openxmlformats-officedocument.spreadsheetml.template   .xlsm application\/vnd.ms-excel.sheet.macroEnabled.12   .xltm application\/vnd.ms-excel.template.macroEnabled.12   .xlam application\/vnd.ms-excel.addin.macroEnabled.12   .xlsb application\/vnd.ms-excel.sheet.binary.macroEnabled.12   .",
+    "inLanguage" : "",
+    "author" : "王志龙",
+    "creator" : "王志龙",
+    "publisher": "王志龙",
+    "accountablePerson" : "王志龙",
+    "copyrightHolder" : "王志龙",
+    "copyrightYear" : "2017",
+    "datePublished": "2017-04-22 00:00:00 \x2b0000 UTC",
+    "dateModified" : "2017-04-22 00:00:00 \x2b0000 UTC",
+    "url" : "https:\/\/www.wangzhiloong.com\/2017\/office-content-type\/",
+    "wordCount" : "55",
+    "keywords" : [ "mime-type","content-type", "随笔漫谈"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://www.wangzhiloong.com/">随笔漫谈</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">文章</a>
+                
+                <a class="menu-item" href="/categories/" title="">分类</a>
+                
+                <a class="menu-item" href="/tags/" title="">标签</a>
+                
+                <a class="menu-item" href="/about/" title="">关于我</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://www.wangzhiloong.com/">随笔漫谈</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">文章</a>
+                
+                <a class="menu-item" href="/categories/" title="">分类</a>
+                
+                <a class="menu-item" href="/tags/" title="">标签</a>
+                
+                <a class="menu-item" href="/about/" title="">关于我</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">office 所有后缀对应的 content-type</h1>
+        <div class="post-meta">
+                写于
+                <span class="post-time">
+                <time datetime=2017-04-22 itemprop="datePublished">2017-04-22</time>
+                </span>
+                ·
+                分类： 
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://www.wangzhiloong.com/categories/php/"> php </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <table>
+<thead>
+<tr>
+<th align="left">后缀</th>
+<th align="left">MIME Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">.doc</td>
+<td align="left">application/msword</td>
+</tr>
+<tr>
+<td align="left">.dot</td>
+<td align="left">application/msword</td>
+</tr>
+<tr>
+<td align="left">.docx</td>
+<td align="left">application/vnd.openxmlformats-officedocument.wordprocessingml.document</td>
+</tr>
+<tr>
+<td align="left">.dotx</td>
+<td align="left">application/vnd.openxmlformats-officedocument.wordprocessingml.template</td>
+</tr>
+<tr>
+<td align="left">.docm</td>
+<td align="left">application/vnd.ms-word.document.macroEnabled.12</td>
+</tr>
+<tr>
+<td align="left">.dotm</td>
+<td align="left">application/vnd.ms-word.template.macroEnabled.12</td>
+</tr>
+<tr>
+<td align="left">.xls</td>
+<td align="left">application/vnd.ms-excel</td>
+</tr>
+<tr>
+<td align="left">.xlt</td>
+<td align="left">application/vnd.ms-excel</td>
+</tr>
+<tr>
+<td align="left">.xla</td>
+<td align="left">application/vnd.ms-excel</td>
+</tr>
+<tr>
+<td align="left">.xlsx</td>
+<td align="left">application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</td>
+</tr>
+<tr>
+<td align="left">.xltx</td>
+<td align="left">application/vnd.openxmlformats-officedocument.spreadsheetml.template</td>
+</tr>
+<tr>
+<td align="left">.xlsm</td>
+<td align="left">application/vnd.ms-excel.sheet.macroEnabled.12</td>
+</tr>
+<tr>
+<td align="left">.xltm</td>
+<td align="left">application/vnd.ms-excel.template.macroEnabled.12</td>
+</tr>
+<tr>
+<td align="left">.xlam</td>
+<td align="left">application/vnd.ms-excel.addin.macroEnabled.12</td>
+</tr>
+<tr>
+<td align="left">.xlsb</td>
+<td align="left">application/vnd.ms-excel.sheet.binary.macroEnabled.12</td>
+</tr>
+<tr>
+<td align="left">.ppt</td>
+<td align="left">application/vnd.ms-powerpoint</td>
+</tr>
+<tr>
+<td align="left">.pot</td>
+<td align="left">application/vnd.ms-powerpoint</td>
+</tr>
+<tr>
+<td align="left">.pps</td>
+<td align="left">application/vnd.ms-powerpoint</td>
+</tr>
+<tr>
+<td align="left">.ppa</td>
+<td align="left">application/vnd.ms-powerpoint</td>
+</tr>
+<tr>
+<td align="left">.pptx</td>
+<td align="left">application/vnd.openxmlformats-officedocument.presentationml.presentation</td>
+</tr>
+<tr>
+<td align="left">.potx</td>
+<td align="left">application/vnd.openxmlformats-officedocument.presentationml.template</td>
+</tr>
+<tr>
+<td align="left">.ppsx</td>
+<td align="left">application/vnd.openxmlformats-officedocument.presentationml.slideshow</td>
+</tr>
+<tr>
+<td align="left">.ppam</td>
+<td align="left">application/vnd.ms-powerpoint.addin.macroEnabled.12</td>
+</tr>
+<tr>
+<td align="left">.pptm</td>
+<td align="left">application/vnd.ms-powerpoint.presentation.macroEnabled.12</td>
+</tr>
+<tr>
+<td align="left">.potm</td>
+<td align="left">application/vnd.ms-powerpoint.presentation.macroEnabled.12</td>
+</tr>
+<tr>
+<td align="left">.ppsm</td>
+<td align="left">application/vnd.ms-powerpoint.slideshow.macroEnabled.12</td>
+</tr>
+</tbody>
+</table>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>文章作者： </span>
+                <span>王志龙 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>链接：</span>
+                    <a href=https://www.wangzhiloong.com/2017/office-content-type/>https://www.wangzhiloong.com/2017/office-content-type/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>标签: 
+            
+            <span class="tag"><a href="https://www.wangzhiloong.com/tags/mime-type/">
+                    #mime-type</a></span>
+            
+            <span class="tag"><a href="https://www.wangzhiloong.com/tags/content-type/">
+                    #content-type</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">返回</a></span> · 
+                <span><a href="https://www.wangzhiloong.com/">首页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://www.wangzhiloong.com/2017/php-coordinate-transform/" class="prev" rel="prev" title="PHP 火星坐标、百度坐标转换、地球坐标转换"><i class="iconfont icon-left"></i>&nbsp;PHP 火星坐标、百度坐标转换、地球坐标转换</a>
+         
+        
+        <a href="https://www.wangzhiloong.com/2018/mysql-show-cli/" class="next" rel="next" title="Mysql show 命令详解">Mysql show 命令详解&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2017 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://www.wangzhiloong.com/">王志龙</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> &  Theme - <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

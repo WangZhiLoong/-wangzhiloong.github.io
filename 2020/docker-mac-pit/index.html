@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="王志龙">
+  <meta name="description" content="技术历程记录，技术学习记录">
+  <meta name="keywords" content="技术博客，Linux，PHP，Mysql，Docker">
+  
+  <link rel="prev" href="https://www.wangzhiloong.com/2020/docker-php/" />
+  <link rel="next" href="https://www.wangzhiloong.com/2020/linux-command/" />
+  <link rel="canonical" href="https://www.wangzhiloong.com/2020/docker-mac-pit/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           Mac中Docker访问宿主机服务 | 随笔漫谈
+       
+  </title>
+  <meta name="title" content="Mac中Docker访问宿主机服务 | 随笔漫谈">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/www.wangzhiloong.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "Mac中Docker访问宿主机服务",
+    "headline" : "Mac中Docker访问宿主机服务",
+    "description" : "Mac的docker并没有docker0这个桥接的网卡，所以无法通过容器的网关IP访问宿主机的服务，这个好坑。。。 查询了官方文档给的解释如下：\n There is no docker0 bridge on macOS Because of the way networking is implemented in Docker Desktop for Mac, you cannot see a docker0 interface on the host. This interface is actually within the virtual machine.\n 容器与宿主机的网络连接是通过Docker Desktop实现的，要访问只能通过域名host.docker.internal访问，官方说明如下：\n I WANT TO CONNECT FROM A CONTAINER TO A SERVICE ON THE HOST\nThe host has a changing IP address (or none if you have no network access).",
+    "inLanguage" : "",
+    "author" : "王志龙",
+    "creator" : "王志龙",
+    "publisher": "王志龙",
+    "accountablePerson" : "王志龙",
+    "copyrightHolder" : "王志龙",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-02-07 10:31:44 \x2b0800 CST",
+    "dateModified" : "2020-02-07 10:31:44 \x2b0800 CST",
+    "url" : "https:\/\/www.wangzhiloong.com\/2020\/docker-mac-pit\/",
+    "wordCount" : "112",
+    "keywords" : [ "docker", "随笔漫谈"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://www.wangzhiloong.com/">随笔漫谈</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">文章</a>
+                
+                <a class="menu-item" href="/categories/" title="">分类</a>
+                
+                <a class="menu-item" href="/tags/" title="">标签</a>
+                
+                <a class="menu-item" href="/about/" title="">关于我</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://www.wangzhiloong.com/">随笔漫谈</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">文章</a>
+                
+                <a class="menu-item" href="/categories/" title="">分类</a>
+                
+                <a class="menu-item" href="/tags/" title="">标签</a>
+                
+                <a class="menu-item" href="/about/" title="">关于我</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Mac中Docker访问宿主机服务</h1>
+        <div class="post-meta">
+                写于
+                <span class="post-time">
+                <time datetime=2020-02-07 itemprop="datePublished">2020-02-07</time>
+                </span>
+                ·
+                分类： 
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://www.wangzhiloong.com/categories/mac/"> Mac </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <p>Mac的docker并没有docker0这个桥接的网卡，所以无法通过容器的网关IP访问宿主机的服务，这个好坑。。。
+查询了<a href="https://docs.docker.com/docker-for-mac/networking/">官方文档</a>给的解释如下：</p>
+<blockquote>
+<p>There is no docker0 bridge on macOS Because of the way networking is implemented in Docker Desktop for Mac, you cannot see a docker0 interface on the host. This interface is actually within the virtual machine.</p>
+</blockquote>
+<p>容器与宿主机的网络连接是通过Docker Desktop实现的，要访问只能通过域名<code>host.docker.internal</code>访问，官方说明如下：</p>
+<blockquote>
+<p>I WANT TO CONNECT FROM A CONTAINER TO A SERVICE ON THE HOST</p>
+<p>The host has a changing IP address (or none if you have no network access). From 18.03 onwards our recommendation is to connect to the special DNS name <code>host.docker.internal</code>, which resolves to the internal IP address used by the host. This is for development purpose and will not work in a production environment outside of Docker Desktop for Mac.</p>
+</blockquote>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>文章作者： </span>
+                <span>王志龙 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>链接：</span>
+                    <a href=https://www.wangzhiloong.com/2020/docker-mac-pit/>https://www.wangzhiloong.com/2020/docker-mac-pit/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>标签: 
+            
+            <span class="tag"><a href="https://www.wangzhiloong.com/tags/docker/">
+                    #docker</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">返回</a></span> · 
+                <span><a href="https://www.wangzhiloong.com/">首页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://www.wangzhiloong.com/2020/docker-php/" class="prev" rel="prev" title="Docker部署php"><i class="iconfont icon-left"></i>&nbsp;Docker部署php</a>
+         
+        
+        <a href="https://www.wangzhiloong.com/2020/linux-command/" class="next" rel="next" title="Linux常用命令行记录">Linux常用命令行记录&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2017 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://www.wangzhiloong.com/">王志龙</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> &  Theme - <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

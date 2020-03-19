@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>docker on 随笔漫谈</title>
+    <link>https://www.wangzhiloong.com/tags/docker/</link>
+    <description>Recent content in docker on 随笔漫谈</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 07 Feb 2020 10:31:44 +0800</lastBuildDate>
+    
+	<atom:link href="https://www.wangzhiloong.com/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Mac中Docker访问宿主机服务</title>
+      <link>https://www.wangzhiloong.com/2020/docker-mac-pit/</link>
+      <pubDate>Fri, 07 Feb 2020 10:31:44 +0800</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2020/docker-mac-pit/</guid>
+      <description>Mac的docker并没有docker0这个桥接的网卡，所以无法通过容器的网关IP访问宿主机的服务，这个好坑。。。 查询了官方文档给的解释如下：
+ There is no docker0 bridge on macOS Because of the way networking is implemented in Docker Desktop for Mac, you cannot see a docker0 interface on the host. This interface is actually within the virtual machine.
+ 容器与宿主机的网络连接是通过Docker Desktop实现的，要访问只能通过域名host.docker.internal访问，官方说明如下：
+ I WANT TO CONNECT FROM A CONTAINER TO A SERVICE ON THE HOST
+The host has a changing IP address (or none if you have no network access).</description>
+    </item>
+    
+    <item>
+      <title>Docker部署php</title>
+      <link>https://www.wangzhiloong.com/2020/docker-php/</link>
+      <pubDate>Thu, 06 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2020/docker-php/</guid>
+      <description>做项目过程中，经常会有php多个版本切换问题，用docker来解决多个php版本问题，本机已经有来nginx，不需要再构建nginx的docker来，如果需要可以使用最下方备注的docker-composer。
+ 一、拉取php-fpm的镜像   7.4 版本 docker pull php:7.4.2-fpm
+  7.3版本 docker pull php:7.3.14-fpm
+  5.6版本 docker pull php:5.6-fpm
+  二、创建容器  docker 直接创建 docker run --name php-fpm -d \ -p 127.0.0.1:9100:9000 \ -v /data/myweb/:/data/myweb/ \ --restart=on-failure:3 \ --workdir=/data/myweb/ \ php:7.3.14-fpm #image替换为相关版本的php-fpm版本  docker-compose 创建 version: &amp;#34;3&amp;#34; services: php-fpm: #image替换为相关版本的php-fpm版本 image: &amp;#34;php:7.3.14-fpm&amp;#34; restart: always working_dir: /data/myweb/ ports: - &amp;#34;127.0.0.1:9001:9000&amp;#34; volumes: - /data/myweb/:/data/myweb/ #网站目录需要和nginx配置目录一致 #- /data/docker/lnmp/php5.6/php.ini-production:/usr/local/ etc/php/php.</description>
+    </item>
+    
+    <item>
+      <title>Docker安装Gitlab</title>
+      <link>https://www.wangzhiloong.com/2020/docker-gitlab-install/</link>
+      <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2020/docker-gitlab-install/</guid>
+      <description>一、 安装   docker安装
+  拉取镜像 docker pull gitlab/gitlab-ce:rc
+  使用docker-file创建容器
+##docker file version: &amp;#34;3&amp;#34; services: gitlab: image: &amp;#39;gitlab/gitlab-ce:rc&amp;#39; restart: always hostname: &amp;#39;git.abc.com&amp;#39; environment: GITLAB_OMNIBUS_CONFIG: | external_url &amp;#39;http://git.abc.com&amp;#39; gitlab_rails[&amp;#39;gitlab_shell_ssh_port&amp;#39;] = 2228 ports: - &amp;#39;127.0.0.1:8000:80&amp;#39; - &amp;#39;2228:22&amp;#39; volumes: - &amp;#39;/data/gitlab/config:/etc/gitlab&amp;#39; - &amp;#39;/data/gitlab/logs:/var/log/gitlab&amp;#39; - &amp;#39;/data/gitlab/data:/var/opt/gitlab&amp;#39; - &amp;#39;/etc/localtime:/etc/localtime:ro&amp;#39; ##项目启动命令## # docker-compose -f docker-gitlab-compose.yml -p gitlab up -d ##项目停止命令## # docker-compose -f docker-gitlab-compose.yml -p gitlab down     主机安装</description>
+    </item>
+    
+    <item>
+      <title>Docker安装Jenkins</title>
+      <link>https://www.wangzhiloong.com/2020/docker-jenkins-install/</link>
+      <pubDate>Tue, 07 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2020/docker-jenkins-install/</guid>
+      <description>一、docker安装  拉取镜像 docker pull jenkins/jenkins:lts # 拉取稳定版镜像 使用docker-file创建容器 version: &amp;#34;3&amp;#34; services: jenkins: image: &amp;#39;jenkins/jenkins:lts&amp;#39; restart: on-failure:3 working_dir: &amp;#39;/var/jenkins_home&amp;#39; user: root ports: - &amp;#39;127.0.0.1:8100:8080&amp;#39; #- &amp;#39;50000:50000&amp;#39; volumes: - &amp;#39;/data/jenkins/jenkins_home:/var/jenkins_home&amp;#39; - &amp;#39;/data/jenkins/ssh_key:/root/.ssh&amp;#39; - &amp;#39;/etc/localtime:/etc/localtime:ro&amp;#39; - &amp;#39;/etc/timezone:/etc/timezone&amp;#39; #时区与主机同步，解决Jenkins时间不对问题 extra_hosts: - &amp;#34;git.abc.com:172.16.1.1&amp;#34; #写入特定的host地址 ##项目启动命令## # docker-compose -f docker-jenkins-compose.yml -p jenkins up -d ##项目停止命令## # docker-compose -f docker-jenkins-compose.yml -p jenkins down  docker file对应的run命令 docker run -u root --name jenkins -d \ -p 127.0.0.1:8100:8080 \ -v /data/jenkins/jenkins_home:/var/jenkins_home \ -v /data/jenkins/ssh_key:/root/.</description>
+    </item>
+    
+  </channel>
+</rss>

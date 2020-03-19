@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>jenkins on 随笔漫谈</title>
+    <link>https://www.wangzhiloong.com/tags/jenkins/</link>
+    <description>Recent content in jenkins on 随笔漫谈</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 07 Jan 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.wangzhiloong.com/tags/jenkins/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Docker安装Jenkins</title>
+      <link>https://www.wangzhiloong.com/2020/docker-jenkins-install/</link>
+      <pubDate>Tue, 07 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2020/docker-jenkins-install/</guid>
+      <description>一、docker安装  拉取镜像 docker pull jenkins/jenkins:lts # 拉取稳定版镜像 使用docker-file创建容器 version: &amp;#34;3&amp;#34; services: jenkins: image: &amp;#39;jenkins/jenkins:lts&amp;#39; restart: on-failure:3 working_dir: &amp;#39;/var/jenkins_home&amp;#39; user: root ports: - &amp;#39;127.0.0.1:8100:8080&amp;#39; #- &amp;#39;50000:50000&amp;#39; volumes: - &amp;#39;/data/jenkins/jenkins_home:/var/jenkins_home&amp;#39; - &amp;#39;/data/jenkins/ssh_key:/root/.ssh&amp;#39; - &amp;#39;/etc/localtime:/etc/localtime:ro&amp;#39; - &amp;#39;/etc/timezone:/etc/timezone&amp;#39; #时区与主机同步，解决Jenkins时间不对问题 extra_hosts: - &amp;#34;git.abc.com:172.16.1.1&amp;#34; #写入特定的host地址 ##项目启动命令## # docker-compose -f docker-jenkins-compose.yml -p jenkins up -d ##项目停止命令## # docker-compose -f docker-jenkins-compose.yml -p jenkins down  docker file对应的run命令 docker run -u root --name jenkins -d \ -p 127.0.0.1:8100:8080 \ -v /data/jenkins/jenkins_home:/var/jenkins_home \ -v /data/jenkins/ssh_key:/root/.</description>
+    </item>
+    
+  </channel>
+</rss>

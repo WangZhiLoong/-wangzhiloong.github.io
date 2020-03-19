@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="王志龙">
+  <meta name="description" content="技术历程记录，技术学习记录">
+  <meta name="keywords" content="技术博客，Linux，PHP，Mysql，Docker">
+  
+  <link rel="prev" href="https://www.wangzhiloong.com/2020/docker-gitlab-install/" />
+  <link rel="next" href="https://www.wangzhiloong.com/2020/git-cli/" />
+  <link rel="canonical" href="https://www.wangzhiloong.com/2020/jumpserver-centos7/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           Jumpserver在Centos7部署 | 随笔漫谈
+       
+  </title>
+  <meta name="title" content="Jumpserver在Centos7部署 | 随笔漫谈">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/www.wangzhiloong.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "Jumpserver在Centos7部署",
+    "headline" : "Jumpserver在Centos7部署",
+    "description" : "本次部署基于官方文档总结，点击查看官方文档\n组件说明   Jumpserver 为管理后台, 管理员可以通过 Web 页面进行资产管理、用户管理、资产授权等操作, 用户可以通过 Web 页面进行资产登录, 文件管理等操作\n  koko 为 SSH Server 和 Web Terminal Server 。用户可以使用自己的账户通过 SSH 或者 Web Terminal 访问 SSH 协议和 Telnet 协议资产\n  Luna 为 Web Terminal Server 前端页面, 用户使用 Web Terminal 方式登录所需要的组件\n  Guacamole 为 RDP 协议和 VNC 协议资产组件, 用户可以通过 Web Terminal 来连接 RDP 协议和 VNC 协议资产 (暂时只能通过 Web Terminal 来访问)\n  端口配置  Jumpserver 默认 Web 端口为 8080\/tcp, 默认 WS 端口为 8070\/tcp, 配置文件 jumpserver\/config.",
+    "inLanguage" : "",
+    "author" : "王志龙",
+    "creator" : "王志龙",
+    "publisher": "王志龙",
+    "accountablePerson" : "王志龙",
+    "copyrightHolder" : "王志龙",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-02-04 00:00:00 \x2b0000 UTC",
+    "dateModified" : "2020-02-04 00:00:00 \x2b0000 UTC",
+    "url" : "https:\/\/www.wangzhiloong.com\/2020\/jumpserver-centos7\/",
+    "wordCount" : "674",
+    "keywords" : [ "jumpserver","Centos7", "随笔漫谈"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://www.wangzhiloong.com/">随笔漫谈</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">文章</a>
+                
+                <a class="menu-item" href="/categories/" title="">分类</a>
+                
+                <a class="menu-item" href="/tags/" title="">标签</a>
+                
+                <a class="menu-item" href="/about/" title="">关于我</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://www.wangzhiloong.com/">随笔漫谈</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">文章</a>
+                
+                <a class="menu-item" href="/categories/" title="">分类</a>
+                
+                <a class="menu-item" href="/tags/" title="">标签</a>
+                
+                <a class="menu-item" href="/about/" title="">关于我</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Jumpserver在Centos7部署</h1>
+        <div class="post-meta">
+                写于
+                <span class="post-time">
+                <time datetime=2020-02-04 itemprop="datePublished">2020-02-04</time>
+                </span>
+                ·
+                分类： 
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://www.wangzhiloong.com/categories/linux/"> Linux </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <p>本次部署基于官方文档总结，点击查看<a href="https://jumpserver.readthedocs.io/zh/master/step_by_step.html">官方文档</a></p>
+<h2 id="组件说明">组件说明</h2>
+<ul>
+<li>
+<p>Jumpserver 为管理后台, 管理员可以通过 Web 页面进行资产管理、用户管理、资产授权等操作, 用户可以通过 Web 页面进行资产登录, 文件管理等操作</p>
+</li>
+<li>
+<p>koko 为 SSH Server 和 Web Terminal Server 。用户可以使用自己的账户通过 SSH 或者 Web Terminal 访问 SSH 协议和 Telnet 协议资产</p>
+</li>
+<li>
+<p>Luna 为 Web Terminal Server 前端页面, 用户使用 Web Terminal 方式登录所需要的组件</p>
+</li>
+<li>
+<p>Guacamole 为 RDP 协议和 VNC 协议资产组件, 用户可以通过 Web Terminal 来连接 RDP 协议和 VNC 协议资产 (暂时只能通过 Web Terminal 来访问)</p>
+</li>
+</ul>
+<h2 id="端口配置">端口配置</h2>
+<ul>
+<li>Jumpserver 默认 Web 端口为 8080/tcp, 默认 WS 端口为 8070/tcp, 配置文件 jumpserver/config.yml</li>
+<li>koko 默认 SSH 端口为 2222/tcp, 默认 Web Terminal 端口为 5000/tcp 配置文件在 koko/config.yml</li>
+<li>Guacamole 默认端口为 8081/tcp, 配置文件 /config/tomcat9/conf/server.xml</li>
+<li>Nginx 默认端口为 80/tcp,443/tcp</li>
+<li>Redis 默认端口为 6379/tcp</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Protocol</th>
+<th>Server name</th>
+<th>IP</th>
+<th>Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TCP</td>
+<td>Jumpserver</td>
+<td>172.100.0.1(容器网络对应IP)</td>
+<td>8070(ws), 8080(http)</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>koko</td>
+<td>172.100.0.2（容器网络对应IP）</td>
+<td>2222, 5000</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>Guacamole</td>
+<td>172.100.0.3（容器网络对应IP）</td>
+<td>8081</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>sqlite3</td>
+<td>db路径：/data/jumpserver/jumpserver/jumpserver.db</td>
+<td></td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>Redis</td>
+<td>127.0.0.1</td>
+<td>6379</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>Nginx</td>
+<td>0.0.0.0</td>
+<td>80,443</td>
+</tr>
+</tbody>
+</table>
+<h2 id="组件安装配置">组件安装配置</h2>
+<h3 id="redis配置">Redis配置</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">yum -y install redis
+<span style="color:#75715e"># 修改 redis 配置文件</span>
+vim /etc/redis.conf
+
+...
+bind 127.0.0.1  <span style="color:#75715e"># 注释这行, 新增如下内容</span>
+requirepass weakPassword  <span style="color:#75715e"># redis 连接密码</span>
+maxmemory-policy allkeys-lru  <span style="color:#75715e"># 清理策略, 优先移除最近未使用的key</span>
+...
+
+systemctl enable redis
+systemctl start redis
+systemctl status redis
+</code></pre></div><h3 id="sqlite3配置">sqlite3配置</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># SQLite 需要 3.8.3 或者最新版本，Centos7 默认版本 3.7.17 需要升级</span>
+cd /usr/local/src
+wget https://www.sqlite.org/2019/sqlite-autoconf-3300100.tar.gz
+tar  zxvf sqlite-autoconf-3300100.tar.gz
+/usr/local/bin/sqlite3 -V
+ln -s /usr/local/bin/sqlite3 /usr/bin/sqlite3
+sqlite3 --version
+
+ln -s /usr/local/lib/libsqlite3.so /usr/lib/libsqlite3.so
+
+
+vim ~/.bashrc
+export LD_LIBRARY_PATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/usr/local/lib&#34;</span>
+source ~/.bashrc
+
+<span style="color:#75715e">#生成jumpserver需要的sqlite文件</span>
+cd /data/jumpserver/jumpserver
+sqlite3 jumpserver.db
+</code></pre></div><h3 id="jumpserver-配置">Jumpserver 配置</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#安装 Python3.6</span>
+$ yum -y install python36 python36-devel
+
+<span style="color:#75715e">#配置并载入 Python3 虚拟环境</span>
+$ cd /data/jumpserver/
+$ python3.6 -m venv py3_venv# py3 为虚拟环境名称, 可自定义
+$ source py3_venv/bin/activate  <span style="color:#75715e"># 激活python虚拟环境，退出虚拟环境可以使用 deactivate 命令</span>
+
+<span style="color:#75715e"># 看到下面的提示符代表成功, 以后运行 Jumpserver 都要先运行以上 source 命令, 载入环境后默认以下所有命令均在该虚拟环境中运行</span>
+<span style="color:#f92672">(</span>py3<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>root@localhost py3<span style="color:#f92672">]</span>
+
+<span style="color:#75715e"># 下载 Jumpserver</span>
+$ cd /data/jumpserver/
+$ git clone --depth<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> https://github.com/jumpserver/jumpserver.git
+
+<span style="color:#75715e"># 安装依赖 RPM 包</span>
+$ yum -y install <span style="color:#66d9ef">$(</span>cat /data/jumpserver/jumpserver/requirements/rpm_requirements.txt<span style="color:#66d9ef">)</span>
+
+<span style="color:#75715e"># 安装 Python 库依赖</span>
+$ pip install wheel
+$ pip install --upgrade pip setuptools
+<span style="color:#75715e">#如果有报错，大多是三方依赖库版本问题，手动安装即可</span>
+$ pip install -r /data/jumpserver/jumpserver/requirements/requirements.txt
+
+<span style="color:#75715e">#注意有error的话，手动修正下版本号，再安装</span>
+
+
+<span style="color:#75715e"># jumpserver配置文件修改</span>
+$ cd /opt/jumpserver
+$ cp config_example.yml config.yml
+
+$ SECRET_KEY<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>cat /dev/urandom | tr -dc A-Za-z0-9 | head -c 50<span style="color:#e6db74">`</span>  <span style="color:#75715e"># 生成随机SECRET_KEY</span>
+$ BOOTSTRAP_TOKEN<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>cat /dev/urandom | tr -dc A-Za-z0-9 | head -c 16<span style="color:#e6db74">`</span>  <span style="color:#75715e"># 生成随机BOOTSTRAP_TOKEN</span>
+$ sed -i <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">s/SECRET_KEY:/SECRET_KEY: </span>$SECRET_KEY<span style="color:#e6db74">/g</span><span style="color:#e6db74">&#34;</span> /data/jumpserver/jumpserver/config.yml
+$ sed -i <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">s/BOOTSTRAP_TOKEN:/BOOTSTRAP_TOKEN: </span>$BOOTSTRAP_TOKEN<span style="color:#e6db74">/g</span><span style="color:#e6db74">&#34;</span> /data/jumpserver/jumpserver/config.yml
+$ sed -i <span style="color:#e6db74">&#34;s/# DEBUG: true/DEBUG: false/g&#34;</span> /data/jumpserver/jumpserver/config.yml
+$ sed -i <span style="color:#e6db74">&#34;s/# LOG_LEVEL: DEBUG/LOG_LEVEL: ERROR/g&#34;</span> /data/jumpserver/jumpserver/config.yml
+$ sed -i <span style="color:#e6db74">&#34;s/# SESSION_EXPIRE_AT_BROWSER_CLOSE: false/SESSION_EXPIRE_AT_BROWSER_CLOSE: true/g&#34;</span> /data/jumpserver/jumpserver/config.yml
+$ sed -i <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">s/DB_PASSWORD: /DB_PASSWORD: </span>$DB_PASSWORD<span style="color:#e6db74">/g</span><span style="color:#e6db74">&#34;</span> /data/jumpserver/jumpserver/config.yml/
+
+$ echo -e <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">\033[31m 你的SECRET_KEY是 </span>$SECRET_KEY<span style="color:#e6db74"> \033[0m</span><span style="color:#e6db74">&#34;</span>
+$ echo -e <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">\033[31m 你的BOOTSTRAP_TOKEN是 </span>$BOOTSTRAP_TOKEN<span style="color:#e6db74"> \033[0m</span><span style="color:#e6db74">&#34;</span>
+
+<span style="color:#75715e">#配置存储为sqlite3，注释mysql配置</span>
+DB_ENGINE: sqlite3
+DB_NAME: /data/jumpserver/jumpserver/jumpserver.db
+
+<span style="color:#75715e">#HTTP_BIND_HOST修改为127.0.0.1</span>
+HTTP_BIND_HOST: 127.0.0.1
+
+$ vi config.yml  <span style="color:#75715e"># 确认内容有没有错误</span>
+</code></pre></div><h3 id="koko-和-guacamole-配置">koko 和 Guacamole 配置</h3>
+<ul>
+<li>
+<p>直接采用docker部署</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#拉取镜像</span>
+docker pull docker.io/jumpserver/jms_koko:1.5.6
+docker pull docker.io/jumpserver/jms_guacamole:1.5.6
+</code></pre></div></li>
+<li>
+<p>docker-compose file</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vim /data/jumpserver/docker-jumpserver-compose.yml
+<span style="color:#75715e">#写入如下内容</span>
+</code></pre></div><p><strong>docker-jumpserver-compose.yml 内容如下：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#66d9ef">version</span>: <span style="color:#e6db74">&#34;3&#34;</span>
+<span style="color:#66d9ef">services</span>:
+  <span style="color:#66d9ef">guacamole</span>:
+    <span style="color:#66d9ef">image</span>: <span style="color:#e6db74">&#39;docker.io/jumpserver/jms_guacamole:1.5.6&#39;</span>
+    <span style="color:#66d9ef">restart</span>: on-failure:<span style="color:#ae81ff">3</span>
+    <span style="color:#66d9ef">environment</span>:
+        <span style="color:#66d9ef">JUMPSERVER_SERVER</span>: <span style="color:#e6db74">&#39;http://172.100.0.1:8080&#39;</span>
+        <span style="color:#66d9ef">BOOTSTRAP_TOKEN</span>: <span style="color:#e6db74">&#39;上面生成的BOOTSTRAP_TOKEN&#39;</span>
+    <span style="color:#66d9ef">ports</span>:
+      - <span style="color:#e6db74">&#39;127.0.0.1:8081:8080&#39;</span>
+    <span style="color:#66d9ef">networks</span>:
+      <span style="color:#66d9ef">jumpserver</span>:
+        <span style="color:#66d9ef">ipv4_address</span>: <span style="color:#ae81ff">172.100</span><span style="color:#ae81ff">.0</span><span style="color:#ae81ff">.2</span>
+    <span style="color:#75715e">#volumes:</span>
+    <span style="color:#75715e">#  - &#39;/etc/localtime:/etc/localtime:ro&#39;</span>
+    <span style="color:#75715e">#  - &#39;/etc/timezone:/etc/timezone&#39;</span>
+  <span style="color:#66d9ef">koko</span>:
+    <span style="color:#66d9ef">image</span>: <span style="color:#e6db74">&#39;docker.io/jumpserver/jms_koko:1.5.6&#39;</span>
+    <span style="color:#66d9ef">restart</span>: on-failure:<span style="color:#ae81ff">3</span>
+    <span style="color:#66d9ef">environment</span>:
+        <span style="color:#66d9ef">CORE_HOST</span>: <span style="color:#e6db74">&#39;http://172.100.0.1:8080&#39;</span>
+        <span style="color:#66d9ef">BOOTSTRAP_TOKEN</span>: <span style="color:#e6db74">&#39;上面生成的BOOTSTRAP_TOKEN&#39;</span>
+    <span style="color:#66d9ef">ports</span>:
+      - <span style="color:#e6db74">&#39;127.0.0.1:5100:5000&#39;</span>
+      - <span style="color:#e6db74">&#39;2222:2222&#39;</span>
+    <span style="color:#66d9ef">networks</span>:
+      <span style="color:#66d9ef">jumpserver</span>:
+        <span style="color:#66d9ef">ipv4_address</span>: <span style="color:#ae81ff">172.100</span><span style="color:#ae81ff">.0</span><span style="color:#ae81ff">.3</span>
+<span style="color:#66d9ef">networks</span>:
+  <span style="color:#66d9ef">jumpserver</span>:
+    <span style="color:#66d9ef">driver</span>: bridge
+    <span style="color:#66d9ef">ipam</span>:
+      <span style="color:#66d9ef">driver</span>: default
+      <span style="color:#66d9ef">config</span>:
+      <span style="color:#e6db74">-
+</span><span style="color:#e6db74">       </span><span style="color:#e6db74"> </span><span style="color:#e6db74">subnet: 172.100.0.1/24</span>
+<span style="color:#75715e">##项目启动命令##</span>
+<span style="color:#75715e"># docker-compose -f docker-jumpserver-compose.yml  -p jumpserver up  -d</span>
+  
+<span style="color:#75715e">##项目停止命令##</span>
+<span style="color:#75715e"># docker-compose -f docker-jumpserver-compose.yml  -p jumpserver down</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 启动容器</span>
+cd /data/jumpserver/
+docker-compose -f docker-jumpserver-compose.yml  -p jumpserver up  -d
+</code></pre></div></li>
+</ul>
+<h3 id="nginx配置">nginx配置</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">vim /usr/local/nginx/conf/vhost/jms.test.com.conf
+
+<span style="color:#75715e">#nginx配置内容</span>
+...
+server
+<span style="color:#f92672">{</span>
+	listen 80;
+	server_name  jms.test.com;
+	<span style="color:#66d9ef">return</span>       <span style="color:#ae81ff">301</span> https://jms.test.com$request_uri;
+	access_log off;
+<span style="color:#f92672">}</span>
+
+server
+<span style="color:#f92672">{</span>
+        listen 443;
+        server_name jms.test.com;
+        ssl on;
+        ssl_certificate /usr/local/nginx/conf/cert/214235695130621.pem;
+        ssl_certificate_key /usr/local/nginx/conf/cert/214235695130621.key;
+        ssl_session_timeout 5m;
+        ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+        ssl_prefer_server_ciphers on;
+		
+	set $node_port 8100;
+
+	client_max_body_size 100m;  <span style="color:#75715e"># 录像及文件上传大小限制</span>	
+	
+	location /luna/ <span style="color:#f92672">{</span>
+        	try_files $uri / /index.html;
+	        alias /data/jumpserver/luna/;  <span style="color:#75715e"># luna 路径, 如果修改安装目录, 此处需要修改</span>
+    	<span style="color:#f92672">}</span>
+
+    	location /media/ <span style="color:#f92672">{</span>
+       		add_header Content-Encoding gzip;
+	        root /data/jumpserver/jumpserver/data/;  <span style="color:#75715e"># 录像位置, 如果修改安装目录, 此处需要修改</span>
+    	<span style="color:#f92672">}</span>
+
+	location /static/ <span style="color:#f92672">{</span>
+        	root /data/jumpserver/jumpserver/data/;  <span style="color:#75715e"># 静态资源, 如果修改安装目录, 此处需要修改</span>
+	<span style="color:#f92672">}</span>
+
+    	location /koko/ <span style="color:#f92672">{</span>
+        	proxy_pass       http://127.0.0.1:5000;
+        	proxy_buffering off;
+        	proxy_http_version 1.1;
+        	proxy_set_header Upgrade $http_upgrade;
+        	proxy_set_header Connection <span style="color:#e6db74">&#34;upgrade&#34;</span>;
+        	proxy_set_header X-Real-IP $remote_addr;
+        	proxy_set_header Host $host;
+        	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        	access_log off;
+    	<span style="color:#f92672">}</span>
+
+    	location /guacamole/ <span style="color:#f92672">{</span>
+        	proxy_pass       http://127.0.0.1:8081/;
+        	proxy_buffering off;
+        	proxy_http_version 1.1;
+        	proxy_set_header Upgrade $http_upgrade;
+        	proxy_set_header Connection $http_connection;
+        	proxy_set_header X-Real-IP $remote_addr;
+        	proxy_set_header Host $host;
+        	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        	access_log off;
+    	<span style="color:#f92672">}</span>
+
+    	location /ws/ <span style="color:#f92672">{</span>
+        	proxy_set_header X-Real-IP $remote_addr;
+        	proxy_set_header Host $host;
+        	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        	proxy_pass http://172.100.0.1:8070;
+        	proxy_http_version 1.1;
+        	proxy_buffering off;
+        	proxy_set_header Upgrade $http_upgrade;
+        	proxy_set_header Connection <span style="color:#e6db74">&#34;upgrade&#34;</span>;
+        <span style="color:#f92672">}</span>
+
+    	location / <span style="color:#f92672">{</span>
+        	proxy_pass http://172.100.0.1:8080;
+	        proxy_set_header X-Real-IP $remote_addr;
+        	proxy_set_header Host $host;
+	        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    	<span style="color:#f92672">}</span>
+
+	access_log logs/jms_access.log;
+        error_log  logs/jms_error.log;
+<span style="color:#f92672">}</span>
+...
+</code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>文章作者： </span>
+                <span>王志龙 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>链接：</span>
+                    <a href=https://www.wangzhiloong.com/2020/jumpserver-centos7/>https://www.wangzhiloong.com/2020/jumpserver-centos7/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>标签: 
+            
+            <span class="tag"><a href="https://www.wangzhiloong.com/tags/jumpserver/">
+                    #jumpserver</a></span>
+            
+            <span class="tag"><a href="https://www.wangzhiloong.com/tags/centos7/">
+                    #Centos7</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">返回</a></span> · 
+                <span><a href="https://www.wangzhiloong.com/">首页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://www.wangzhiloong.com/2020/docker-gitlab-install/" class="prev" rel="prev" title="Docker安装Gitlab"><i class="iconfont icon-left"></i>&nbsp;Docker安装Gitlab</a>
+         
+        
+        <a href="https://www.wangzhiloong.com/2020/git-cli/" class="next" rel="next" title="Git 使用技巧">Git 使用技巧&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2017 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://www.wangzhiloong.com/">王志龙</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> &  Theme - <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

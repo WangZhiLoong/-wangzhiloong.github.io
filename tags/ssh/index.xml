@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ssh on 随笔漫谈</title>
+    <link>https://www.wangzhiloong.com/tags/ssh/</link>
+    <description>Recent content in ssh on 随笔漫谈</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 01 Jan 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.wangzhiloong.com/tags/ssh/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Ssh免密登录配置</title>
+      <link>https://www.wangzhiloong.com/2020/ssh-password-free-login/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2020/ssh-password-free-login/</guid>
+      <description>本地机器配置免密码登录远程linux服务器 ssh-keygen #生成公钥和私钥 ssh-copy-id -i ~/.ssh/id_rsa.pub root@目标IP #将公钥追加到部署目标服务器 ssh root@目标IP # 测试免密登录 </description>
+    </item>
+    
+  </channel>
+</rss>

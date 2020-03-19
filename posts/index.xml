@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on 随笔漫谈</title>
+    <link>https://www.wangzhiloong.com/posts/</link>
+    <description>Recent content in Posts on 随笔漫谈</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 19 Feb 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.wangzhiloong.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Linux常用命令行记录</title>
+      <link>https://www.wangzhiloong.com/2020/linux-command/</link>
+      <pubDate>Wed, 19 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2020/linux-command/</guid>
+      <description>find查看最近修改的文件 #find 路径 -命令参数 [输出形式] #需要使用的参数： #-ctime -n | +n 按照文件的创建时间来查找文件 #-n 表示文件创建时间距现在n天以内 #+n 表示文件创建时间距现在n天以前 #查看根目录/下最近1天增加的文件 find / -ctime -1 -ls 查看子目录占用空间大小 # 查看一级子目录，要看到二级，--max-depth或-d 修改为2 du -h --max-depth=1 du -h -d 1 docker常用命令 #容器中安装ifcong ping apt install net-tools iputils-ping traceroute apt install default-mysql-client svn使用 #linux svn命令 搜索指定提交的记录 svn log -v --search &amp;#39;提交信息&amp;#39; |less redis #批量清除redis key redis-cli -h redis地址 -a 连接redis密码 -n db_num keys &amp;#34;key*&amp;#34; |xargs redis-cli -h redis地址 -a 连接redis密码 -n db_num del 账户信息检查 #查看账户列表 cat /etc/passwd #检查是否产生了新用户，和UID、GID是0的用户 grep :0: /etc/passwd # 查看文件修改日 ls -l /etc/passwd #查看是否存在特权用户 awk -F: &amp;#39;$3==0 {print $1}&amp;#39; /etc/passwd #查看是否存在空口令帐户 awk -F: &amp;#39;length($2)==0 {print $1}&amp;#39; /etc/shadow vim 树形说明 </description>
+    </item>
+    
+    <item>
+      <title>Mac中Docker访问宿主机服务</title>
+      <link>https://www.wangzhiloong.com/2020/docker-mac-pit/</link>
+      <pubDate>Fri, 07 Feb 2020 10:31:44 +0800</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2020/docker-mac-pit/</guid>
+      <description>Mac的docker并没有docker0这个桥接的网卡，所以无法通过容器的网关IP访问宿主机的服务，这个好坑。。。 查询了官方文档给的解释如下：
+ There is no docker0 bridge on macOS Because of the way networking is implemented in Docker Desktop for Mac, you cannot see a docker0 interface on the host. This interface is actually within the virtual machine.
+ 容器与宿主机的网络连接是通过Docker Desktop实现的，要访问只能通过域名host.docker.internal访问，官方说明如下：
+ I WANT TO CONNECT FROM A CONTAINER TO A SERVICE ON THE HOST
+The host has a changing IP address (or none if you have no network access).</description>
+    </item>
+    
+    <item>
+      <title>Docker部署php</title>
+      <link>https://www.wangzhiloong.com/2020/docker-php/</link>
+      <pubDate>Thu, 06 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2020/docker-php/</guid>
+      <description>做项目过程中，经常会有php多个版本切换问题，用docker来解决多个php版本问题，本机已经有来nginx，不需要再构建nginx的docker来，如果需要可以使用最下方备注的docker-composer。
+ 一、拉取php-fpm的镜像   7.4 版本 docker pull php:7.4.2-fpm
+  7.3版本 docker pull php:7.3.14-fpm
+  5.6版本 docker pull php:5.6-fpm
+  二、创建容器  docker 直接创建 docker run --name php-fpm -d \ -p 127.0.0.1:9100:9000 \ -v /data/myweb/:/data/myweb/ \ --restart=on-failure:3 \ --workdir=/data/myweb/ \ php:7.3.14-fpm #image替换为相关版本的php-fpm版本  docker-compose 创建 version: &amp;#34;3&amp;#34; services: php-fpm: #image替换为相关版本的php-fpm版本 image: &amp;#34;php:7.3.14-fpm&amp;#34; restart: always working_dir: /data/myweb/ ports: - &amp;#34;127.0.0.1:9001:9000&amp;#34; volumes: - /data/myweb/:/data/myweb/ #网站目录需要和nginx配置目录一致 #- /data/docker/lnmp/php5.6/php.ini-production:/usr/local/ etc/php/php.</description>
+    </item>
+    
+    <item>
+      <title>Git 使用技巧</title>
+      <link>https://www.wangzhiloong.com/2020/git-cli/</link>
+      <pubDate>Tue, 04 Feb 2020 16:44:28 +0800</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2020/git-cli/</guid>
+      <description>git是什么  Git 是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。
+Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件（两周开发出来的）。
+Git 与常用的版本控制工具 CVS, Subversion 等不同，它采用了分布式版本库的方式，不必服务器端软件支持。
+Git是目前世界上最先进的分布式版本控制系统。
+ 为什么用git  1、Git 是分布式的，SVN 不是：这是 Git 和其它非分布式的版本控制系统，例如 SVN，CVS 等，最核心的区别。
+2、Git 把内容按元数据方式存储，而 SVN 是按文件： 所有的资源控制系统都是把文件的元信息隐藏在一个类似 .svn、.cvs 等的文件夹里。
+3、Git 分支和 SVN 的分支不同： 分支在 SVN 中一点都不特别，其实它就是版本库中的另外一个目录。
+4、Git 没有一个全局的版本号，而 SVN 有： 目前为止这是跟 SVN 相比 Git 缺少的最大的一个特征。
+5、Git 的内容完整性要优于 SVN： Git 的内容存储使用的是 SHA-1 哈希算法。这能确保代码内容的完整性，确保在遇到磁盘故障和网络问题时降低对版本库的破坏。
+这么牛逼，为什么不用呢？
+ 怎么用git   git常用方法
+ 两种方式使用：
+http(https)方式：克隆项目时使用http(https)协议，需要输入gitlab的用户名和密码，不建议使用（每次push也都需要输入，比较麻烦，不过大多git客户端支持记录密码）。
+ssh方式：克隆项目时使用ssh协议，需要先在本机创建公钥，然后将公钥填充到gitlab&amp;ndash;&amp;gt;个人设置-&amp;gt;SSH Keys中。建议采用此方式，一劳永逸（除非换电脑）。
+   初次使用git的配置</description>
+    </item>
+    
+    <item>
+      <title>Jumpserver在Centos7部署</title>
+      <link>https://www.wangzhiloong.com/2020/jumpserver-centos7/</link>
+      <pubDate>Tue, 04 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2020/jumpserver-centos7/</guid>
+      <description>本次部署基于官方文档总结，点击查看官方文档
+组件说明   Jumpserver 为管理后台, 管理员可以通过 Web 页面进行资产管理、用户管理、资产授权等操作, 用户可以通过 Web 页面进行资产登录, 文件管理等操作
+  koko 为 SSH Server 和 Web Terminal Server 。用户可以使用自己的账户通过 SSH 或者 Web Terminal 访问 SSH 协议和 Telnet 协议资产
+  Luna 为 Web Terminal Server 前端页面, 用户使用 Web Terminal 方式登录所需要的组件
+  Guacamole 为 RDP 协议和 VNC 协议资产组件, 用户可以通过 Web Terminal 来连接 RDP 协议和 VNC 协议资产 (暂时只能通过 Web Terminal 来访问)
+  端口配置  Jumpserver 默认 Web 端口为 8080/tcp, 默认 WS 端口为 8070/tcp, 配置文件 jumpserver/config.</description>
+    </item>
+    
+    <item>
+      <title>Docker安装Gitlab</title>
+      <link>https://www.wangzhiloong.com/2020/docker-gitlab-install/</link>
+      <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2020/docker-gitlab-install/</guid>
+      <description>一、 安装   docker安装
+  拉取镜像 docker pull gitlab/gitlab-ce:rc
+  使用docker-file创建容器
+##docker file version: &amp;#34;3&amp;#34; services: gitlab: image: &amp;#39;gitlab/gitlab-ce:rc&amp;#39; restart: always hostname: &amp;#39;git.abc.com&amp;#39; environment: GITLAB_OMNIBUS_CONFIG: | external_url &amp;#39;http://git.abc.com&amp;#39; gitlab_rails[&amp;#39;gitlab_shell_ssh_port&amp;#39;] = 2228 ports: - &amp;#39;127.0.0.1:8000:80&amp;#39; - &amp;#39;2228:22&amp;#39; volumes: - &amp;#39;/data/gitlab/config:/etc/gitlab&amp;#39; - &amp;#39;/data/gitlab/logs:/var/log/gitlab&amp;#39; - &amp;#39;/data/gitlab/data:/var/opt/gitlab&amp;#39; - &amp;#39;/etc/localtime:/etc/localtime:ro&amp;#39; ##项目启动命令## # docker-compose -f docker-gitlab-compose.yml -p gitlab up -d ##项目停止命令## # docker-compose -f docker-gitlab-compose.yml -p gitlab down     主机安装</description>
+    </item>
+    
+    <item>
+      <title>Docker安装Jenkins</title>
+      <link>https://www.wangzhiloong.com/2020/docker-jenkins-install/</link>
+      <pubDate>Tue, 07 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2020/docker-jenkins-install/</guid>
+      <description>一、docker安装  拉取镜像 docker pull jenkins/jenkins:lts # 拉取稳定版镜像 使用docker-file创建容器 version: &amp;#34;3&amp;#34; services: jenkins: image: &amp;#39;jenkins/jenkins:lts&amp;#39; restart: on-failure:3 working_dir: &amp;#39;/var/jenkins_home&amp;#39; user: root ports: - &amp;#39;127.0.0.1:8100:8080&amp;#39; #- &amp;#39;50000:50000&amp;#39; volumes: - &amp;#39;/data/jenkins/jenkins_home:/var/jenkins_home&amp;#39; - &amp;#39;/data/jenkins/ssh_key:/root/.ssh&amp;#39; - &amp;#39;/etc/localtime:/etc/localtime:ro&amp;#39; - &amp;#39;/etc/timezone:/etc/timezone&amp;#39; #时区与主机同步，解决Jenkins时间不对问题 extra_hosts: - &amp;#34;git.abc.com:172.16.1.1&amp;#34; #写入特定的host地址 ##项目启动命令## # docker-compose -f docker-jenkins-compose.yml -p jenkins up -d ##项目停止命令## # docker-compose -f docker-jenkins-compose.yml -p jenkins down  docker file对应的run命令 docker run -u root --name jenkins -d \ -p 127.0.0.1:8100:8080 \ -v /data/jenkins/jenkins_home:/var/jenkins_home \ -v /data/jenkins/ssh_key:/root/.</description>
+    </item>
+    
+    <item>
+      <title>Ssh免密登录配置</title>
+      <link>https://www.wangzhiloong.com/2020/ssh-password-free-login/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2020/ssh-password-free-login/</guid>
+      <description>本地机器配置免密码登录远程linux服务器 ssh-keygen #生成公钥和私钥 ssh-copy-id -i ~/.ssh/id_rsa.pub root@目标IP #将公钥追加到部署目标服务器 ssh root@目标IP # 测试免密登录 </description>
+    </item>
+    
+    <item>
+      <title>Linux Firewall 配置</title>
+      <link>https://www.wangzhiloong.com/2019/linux-firewall-config/</link>
+      <pubDate>Tue, 17 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2019/linux-firewall-config/</guid>
+      <description>firewall服务器启动、停止  启动 systemctl start firewalld 关闭 systemctl stop firewalld 查看状态 systemctl status firewalld 开机启动配置 systemctl enable firewalld 开机启动关闭 systemctl disable firewalld  firewall策略配置：firewalld-cmd  重载配置规则 firewall-cmd --reload 查看配置规则 firewall-cmd --list-rich-rules 获取默认控制设置 firewall-cmd --get-default-zone 设置默认空间 firewall-cmd --set-default-zone=public 设置规则，设置完成后需要reload ###########设置规则########### firewall-cmd --permanent --add-rich-rule=&amp;#34;rule family=&amp;#34;ipv4&amp;#34; source address=&amp;#34;IP地址&amp;#34; accept&amp;#34; # 开启端口 firewall-cmd --permanent --add-port=80/tcp ###########移除规则########### firewall-cmd --remove-rich-rule &amp;#34;rule family=&amp;#34;ipv4&amp;#34; source address=&amp;#34;IP地址&amp;#34; accept&amp;#34; # 移除端口 firewall-cmd --permanent --remove-port=80/tcp # 拒绝所有ip流量 firewall-cmd --permanent --add-rich-rule=&amp;#34;rule family=&amp;#34;ipv4&amp;#34; source address=&amp;#34;0.</description>
+    </item>
+    
+    <item>
+      <title>Mysql show 命令详解</title>
+      <link>https://www.wangzhiloong.com/2018/mysql-show-cli/</link>
+      <pubDate>Tue, 02 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2018/mysql-show-cli/</guid>
+      <description>Mysql show命令 说明     SHOW DATABASES 列出 MySQL Server上的数据库。   SHOW TABLES [FROM db_name] 列出数据库中的表。   SHOW TABLE STATUS [FROM db_name] 列出数据库的表信息，比较详细。   SHOW COLUMNS FROM tbl_name [FROM db_name] 列出表的列信息，同 SHOW FIELDS FROM tbl_name [FROM db_name]，DESCRIBE tbl_name [col_name]。   SHOW FULL COLUMNS FROM tbl_name [FROM db_name] 列出表的列信息，比较详细，同 SHOW FULL FIELDS FROM tbl_name [FROM db_name]。   SHOW INDEX FROM tbl_name [FROM db_name] 列出表的索引信息。   SHOW STATUS 列出 Server 的状态信息。   SHOW VARIABLES 列出 MySQL 系統参数值   SHOW PROCESSLIST 查看当前mysql查询进程   SHOW GRANTS FOR user 列出用户的授权命令    ##常用命令</description>
+    </item>
+    
+    <item>
+      <title>office 所有后缀对应的 content-type</title>
+      <link>https://www.wangzhiloong.com/2017/office-content-type/</link>
+      <pubDate>Sat, 22 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2017/office-content-type/</guid>
+      <description>后缀 MIME Type     .doc application/msword   .dot application/msword   .docx application/vnd.openxmlformats-officedocument.wordprocessingml.document   .dotx application/vnd.openxmlformats-officedocument.wordprocessingml.template   .docm application/vnd.ms-word.document.macroEnabled.12   .dotm application/vnd.ms-word.template.macroEnabled.12   .xls application/vnd.ms-excel   .xlt application/vnd.ms-excel   .xla application/vnd.ms-excel   .xlsx application/vnd.openxmlformats-officedocument.spreadsheetml.sheet   .xltx application/vnd.openxmlformats-officedocument.spreadsheetml.template   .xlsm application/vnd.ms-excel.sheet.macroEnabled.12   .xltm application/vnd.ms-excel.template.macroEnabled.12   .xlam application/vnd.ms-excel.addin.macroEnabled.12   .xlsb application/vnd.ms-excel.sheet.binary.macroEnabled.12   .</description>
+    </item>
+    
+    <item>
+      <title>PHP 火星坐标、百度坐标转换、地球坐标转换</title>
+      <link>https://www.wangzhiloong.com/2017/php-coordinate-transform/</link>
+      <pubDate>Sat, 22 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2017/php-coordinate-transform/</guid>
+      <description>一、知识点： 坐标系分类：国际经纬度坐标WGS84、火星系坐标GCJ-02、百度坐标系BG-09
+   类型 说明 使用者     WGS84 美国GPS 国际通用，如谷歌国外地图、osm地图   火星系GCJ-02 国测局制定的标准，国内地图必须至少使用此对位置进行首次加密 高德地图、腾讯搜搜地图、阿里云地图、灵图51ditu地图、谷歌中国地图   BG-09 百度在GCJ-02标准基础上进行二次加密 百度地图    二、PHP实现方法 共有两个类，Coordinate和CoordinateTool。 Coordinate，坐标点对象：
+class Coordinate { public $x = 0; public $y = 0; /** * Coordinate constructor. * @param $lon float 经度 * @param $lat float 纬度 */ public function __construct ($lon,$lat) { $this-&amp;gt;x = $lon; $this-&amp;gt;y = $lat; } } CoordinateTool ，坐标转换工具类：</description>
+    </item>
+    
+    <item>
+      <title>Mac环境配置</title>
+      <link>https://www.wangzhiloong.com/2017/mac-evn-config/</link>
+      <pubDate>Fri, 21 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2017/mac-evn-config/</guid>
+      <description>命令行开发工具安装 xcode-select --install
+ 命令安装路径：/Library/Developer/CommandLineTools/usr/bin 安装命令列表： 2to3 2to3-3.7 DeRez GetFileInfo ResMerger Rez SetFile SplitForks ar as asa bison bitcode_strip c++ c89 c99 cc clang clang++ cmpdylib codesign_allocate codesign_allocate-p cpp ctags ctf_insert dsymutil dwarfdump dwarfdump-classic dyldinfo easy_install-3.7 flex flex++ g++ gatherheaderdoc gcc gcov git git-receive-pack git-shell git-upload-archive git-upload-pack gm4 gnumake gperf hdxml2manxml headerdoc2html indent install_name_tool ld lex libtool lipo lldb llvm-cov llvm-dwarfdump llvm-nm llvm-objdump llvm-otool llvm-profdata llvm-size lorder m4 make mig nm nm-classic nmedit objdump otool otool-classic pagestuff pip3 pip3.</description>
+    </item>
+    
+    <item>
+      <title>mysqldump 导出 数据&#43;结构&#43;函数&#43;存储过程</title>
+      <link>https://www.wangzhiloong.com/2017/mysql-mysqldump/</link>
+      <pubDate>Tue, 14 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2017/mysql-mysqldump/</guid>
+      <description>mysql数据导出 #导出单个数据库：结构 无数据 [root@localhost ~]#mysqldump -h127.0.0.1 -uroot -p --opt --no-data db_name &amp;gt;~/db_name.sql #导出单个数据库：有数据 无结构 [root@localhost ~]#mysqldump -h127.0.0.1 -uroot -p --opt --no-create-info db_name &amp;gt;~/db_name.sql #导出单个数据库：结构+数据 [root@localhost ~]#mysqldump -h127.0.0.1 -uroot -p --opt db_name &amp;gt;~/db_name.sql #导出单个数据库：结构+数据+函数+存储过程 [root@localhost ~]#mysqldump -h127.0.0.1 -uroot -p --opt -R db_name &amp;gt;~/db_name.sql #导出多个数据库：结构 [root@localhost ~]#mysqldump -h127.0.0.1 -uroot -p --opt --databases db_name1 db_name2 &amp;gt;~/db_name.sql #导出单个表：结构 无数据 [root@localhost ~]#mysqldump -h127.0.0.1 -uroot -p --opt --no-data -d db_name table&amp;gt;~/table_name.sql #导出单个表：结构 包含数据 [root@localhost ~]#mysqldump -h127.0.0.1 -uroot -p --opt dbname tablename&amp;gt;～/tablename.</description>
+    </item>
+    
+  </channel>
+</rss>

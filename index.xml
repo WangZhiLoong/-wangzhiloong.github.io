@@ -1,0 +1,37 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>随笔漫谈 on 随笔漫谈</title>
+    <link>https://www.wangzhiloong.com/</link>
+    <description>Recent content in 随笔漫谈 on 随笔漫谈</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 19 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Posts</title>
+      <link>https://www.wangzhiloong.com/posts/</link>
+      <pubDate>Wed, 19 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/posts/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>关于我</title>
+      <link>https://www.wangzhiloong.com/about/</link>
+      <pubDate>Sat, 01 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/about/</guid>
+      <description>&lt;p&gt;一个90后IT工程师！热衷于技术研发，坚信在做的事情能够改变世界！喜欢倒腾，技术涉猎范围包括：后端开发、前端开发、运维、移动端开发等。&lt;/p&gt;
+&lt;p&gt;坚信珍惜当下，才能创造更大的价值。最初从接触网络和服务器开始，步入到互联网大潮中，而后不断学习后端技术、前端技术、移动端技术，踏坑无数，决定做个网站将历程记录，收集开源技术，给入门的朋友提供指引。&lt;/p&gt;
+&lt;p&gt;奉行 &lt;strong&gt;“未来不迎 | 当时不杂 | 过往不恋”&lt;/strong&gt;，过去失去的，再怀念也无用；未来想要的，只有通过当下的奋斗才可得到！&lt;/p&gt;
+&lt;p&gt;行万里路。除了技术，就是多彩生活，骑行、露营、爬山，生活还有诗和远方！
+&lt;img src=&#34;https://www.wangzhiloong.com/images/me/ly_my.jpeg&#34; alt=&#34;骑行&#34;&gt;
+&lt;img src=&#34;https://www.wangzhiloong.com/images/me/lx_hts2.jpeg&#34; alt=&#34;露营&#34;&gt;
+&lt;img src=&#34;https://www.wangzhiloong.com/images/me/lx_hts3.jpeg&#34; alt=&#34;露营&#34;&gt;
+&lt;img src=&#34;https://www.wangzhiloong.com/images/me/lx_hts4.jpeg&#34; alt=&#34;露营&#34;&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

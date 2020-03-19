@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="王志龙">
+  <meta name="description" content="技术历程记录，技术学习记录">
+  <meta name="keywords" content="技术博客，Linux，PHP，Mysql，Docker">
+  
+  <link rel="prev" href="https://www.wangzhiloong.com/2018/mysql-show-cli/" />
+  <link rel="next" href="https://www.wangzhiloong.com/2020/ssh-password-free-login/" />
+  <link rel="canonical" href="https://www.wangzhiloong.com/2019/linux-firewall-config/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           Linux Firewall 配置 | 随笔漫谈
+       
+  </title>
+  <meta name="title" content="Linux Firewall 配置 | 随笔漫谈">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/www.wangzhiloong.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "Linux Firewall 配置",
+    "headline" : "Linux Firewall 配置",
+    "description" : "firewall服务器启动、停止  启动 systemctl start firewalld 关闭 systemctl stop firewalld 查看状态 systemctl status firewalld 开机启动配置 systemctl enable firewalld 开机启动关闭 systemctl disable firewalld  firewall策略配置：firewalld-cmd  重载配置规则 firewall-cmd --reload 查看配置规则 firewall-cmd --list-rich-rules 获取默认控制设置 firewall-cmd --get-default-zone 设置默认空间 firewall-cmd --set-default-zone=public 设置规则，设置完成后需要reload ###########设置规则########### firewall-cmd --permanent --add-rich-rule=\x26#34;rule family=\x26#34;ipv4\x26#34; source address=\x26#34;IP地址\x26#34; accept\x26#34; # 开启端口 firewall-cmd --permanent --add-port=80\/tcp ###########移除规则########### firewall-cmd --remove-rich-rule \x26#34;rule family=\x26#34;ipv4\x26#34; source address=\x26#34;IP地址\x26#34; accept\x26#34; # 移除端口 firewall-cmd --permanent --remove-port=80\/tcp # 拒绝所有ip流量 firewall-cmd --permanent --add-rich-rule=\x26#34;rule family=\x26#34;ipv4\x26#34; source address=\x26#34;0.",
+    "inLanguage" : "",
+    "author" : "王志龙",
+    "creator" : "王志龙",
+    "publisher": "王志龙",
+    "accountablePerson" : "王志龙",
+    "copyrightHolder" : "王志龙",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-12-17 00:00:00 \x2b0000 UTC",
+    "dateModified" : "2019-12-17 00:00:00 \x2b0000 UTC",
+    "url" : "https:\/\/www.wangzhiloong.com\/2019\/linux-firewall-config\/",
+    "wordCount" : "77",
+    "keywords" : [ "firewall","Centos7", "随笔漫谈"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://www.wangzhiloong.com/">随笔漫谈</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">文章</a>
+                
+                <a class="menu-item" href="/categories/" title="">分类</a>
+                
+                <a class="menu-item" href="/tags/" title="">标签</a>
+                
+                <a class="menu-item" href="/about/" title="">关于我</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://www.wangzhiloong.com/">随笔漫谈</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">文章</a>
+                
+                <a class="menu-item" href="/categories/" title="">分类</a>
+                
+                <a class="menu-item" href="/tags/" title="">标签</a>
+                
+                <a class="menu-item" href="/about/" title="">关于我</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Linux Firewall 配置</h1>
+        <div class="post-meta">
+                写于
+                <span class="post-time">
+                <time datetime=2019-12-17 itemprop="datePublished">2019-12-17</time>
+                </span>
+                ·
+                分类： 
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://www.wangzhiloong.com/categories/linux/"> Linux </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h2 id="firewall服务器启动停止">firewall服务器启动、停止</h2>
+<ul>
+<li>启动
+<code>systemctl start firewalld</code></li>
+<li>关闭
+<code>systemctl stop firewalld</code></li>
+<li>查看状态
+<code>systemctl status firewalld</code></li>
+<li>开机启动配置
+<code>systemctl enable firewalld</code></li>
+<li>开机启动关闭
+<code>systemctl disable firewalld</code></li>
+</ul>
+<h2 id="firewall策略配置firewalld-cmd">firewall策略配置：firewalld-cmd</h2>
+<ul>
+<li>重载配置规则
+<code>firewall-cmd --reload</code></li>
+<li>查看配置规则
+<code>firewall-cmd --list-rich-rules</code></li>
+<li>获取默认控制设置
+<code>firewall-cmd --get-default-zone</code></li>
+<li>设置默认空间
+<code>firewall-cmd --set-default-zone=public</code></li>
+<li>设置规则，设置完成后需要reload
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">###########设置规则###########</span>
+firewall-cmd --permanent --add-rich-rule<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rule family=&#34;</span>ipv4<span style="color:#e6db74">&#34; source address=&#34;</span>IP地址<span style="color:#e6db74">&#34; accept&#34;</span>
+
+<span style="color:#75715e"># 开启端口</span>
+firewall-cmd --permanent --add-port<span style="color:#f92672">=</span>80/tcp
+
+<span style="color:#75715e">###########移除规则###########</span>
+firewall-cmd  --remove-rich-rule <span style="color:#e6db74">&#34;rule family=&#34;</span>ipv4<span style="color:#e6db74">&#34; source address=&#34;</span>IP地址<span style="color:#e6db74">&#34; accept&#34;</span>
+
+<span style="color:#75715e"># 移除端口</span>
+firewall-cmd --permanent --remove-port<span style="color:#f92672">=</span>80/tcp
+
+<span style="color:#75715e"># 拒绝所有ip流量</span>
+firewall-cmd --permanent --add-rich-rule<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rule family=&#34;</span>ipv4<span style="color:#e6db74">&#34; source address=&#34;</span>0.0.0.0<span style="color:#e6db74">&#34; reject&#34;</span>
+</code></pre></div></li>
+<li>查看所有打开的端口
+<code> firewall-cmd --zone=public --list-ports</code></li>
+<li>显示帮助
+<code>firewall-cmd --help</code></li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>文章作者： </span>
+                <span>王志龙 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>链接：</span>
+                    <a href=https://www.wangzhiloong.com/2019/linux-firewall-config/>https://www.wangzhiloong.com/2019/linux-firewall-config/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>标签: 
+            
+            <span class="tag"><a href="https://www.wangzhiloong.com/tags/firewall/">
+                    #firewall</a></span>
+            
+            <span class="tag"><a href="https://www.wangzhiloong.com/tags/centos7/">
+                    #Centos7</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">返回</a></span> · 
+                <span><a href="https://www.wangzhiloong.com/">首页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://www.wangzhiloong.com/2018/mysql-show-cli/" class="prev" rel="prev" title="Mysql show 命令详解"><i class="iconfont icon-left"></i>&nbsp;Mysql show 命令详解</a>
+         
+        
+        <a href="https://www.wangzhiloong.com/2020/ssh-password-free-login/" class="next" rel="next" title="Ssh免密登录配置">Ssh免密登录配置&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2017 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://www.wangzhiloong.com/">王志龙</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> &  Theme - <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>redis on 随笔漫谈</title>
+    <link>https://www.wangzhiloong.com/tags/redis/</link>
+    <description>Recent content in redis on 随笔漫谈</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 06 Feb 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.wangzhiloong.com/tags/redis/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Docker部署php</title>
+      <link>https://www.wangzhiloong.com/2020/docker-php/</link>
+      <pubDate>Thu, 06 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2020/docker-php/</guid>
+      <description>做项目过程中，经常会有php多个版本切换问题，用docker来解决多个php版本问题，本机已经有来nginx，不需要再构建nginx的docker来，如果需要可以使用最下方备注的docker-composer。
+ 一、拉取php-fpm的镜像   7.4 版本 docker pull php:7.4.2-fpm
+  7.3版本 docker pull php:7.3.14-fpm
+  5.6版本 docker pull php:5.6-fpm
+  二、创建容器  docker 直接创建 docker run --name php-fpm -d \ -p 127.0.0.1:9100:9000 \ -v /data/myweb/:/data/myweb/ \ --restart=on-failure:3 \ --workdir=/data/myweb/ \ php:7.3.14-fpm #image替换为相关版本的php-fpm版本  docker-compose 创建 version: &amp;#34;3&amp;#34; services: php-fpm: #image替换为相关版本的php-fpm版本 image: &amp;#34;php:7.3.14-fpm&amp;#34; restart: always working_dir: /data/myweb/ ports: - &amp;#34;127.0.0.1:9001:9000&amp;#34; volumes: - /data/myweb/:/data/myweb/ #网站目录需要和nginx配置目录一致 #- /data/docker/lnmp/php5.6/php.ini-production:/usr/local/ etc/php/php.</description>
+    </item>
+    
+  </channel>
+</rss>

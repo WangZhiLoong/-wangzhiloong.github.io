@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>FPV系列 on 随笔漫谈</title>
+    <link>https://www.wangzhiloong.com/posts/fpvs/</link>
+    <description>Recent content in FPV系列 on 随笔漫谈</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 27 Jul 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.wangzhiloong.com/posts/fpvs/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>FPV-入坑穿越机</title>
+      <link>https://www.wangzhiloong.com/2019/20190727-fpv/</link>
+      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2019/20190727-fpv/</guid>
+      <description> 看到朋友用穿越机拍摄的视频，深深的被吸引了，二话没说直接入坑穿越机，先附上国外大神穿越机视频，让大家养养眼。MR STEELE胡子办公楼极限穿越
+ 入坑准备  先买买买  选遥控 遥控选择有很多：FlySky（入门首选）、乐迪、睿斯凯、地平线，我入手的是经典FlySkyi6的升级版 i6x，适合入门，不同牌子协议不同，对应飞机的接收器也不一样，选择飞机时需注意！！！ 模拟器练习  加密狗：音频线转USB，用户遥控链接电脑 电脑安装模拟器软件：FreeRider（简单、支持win、mac）、LiftOff、DRL（功能多，有DRL赛道）等   选飞机  我买的是TINY R7,适合入门，不带卡录，抗摔 入口后，买翼飞iFlight，支持卡录 然后，可以买飞蛋系列 再然后就是自己攒配置，自己焊接，组装   选FPV眼镜 肥鲨系列、skyzone系列、EV200D、小飞手等等 自己攒配置，组装穿越机    betaflight调参Tiny R7飞控  飞控调参可以参照调参视频，调参视频
+  遥控器和飞机对码：参照发射器和遥控器说明书，自行摸索。 betaflitght调参软件下载 Tiny R7飞控usb驱动安装：点击获取驱动下载地址  window7可以用驱动精灵安装、window10能自动安装、mac手动下载安装。
+  飞控调参  betaflight连接飞控  加速计校准	 开启端口  配置参数  接收器设置	 模式设置  电机调试     牛刀小试  模拟器牛刀小试 ，查看 穿越机牛刀小试，待续～  </description>
+    </item>
+    
+  </channel>
+</rss>

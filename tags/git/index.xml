@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>git on 随笔漫谈</title>
+    <link>https://www.wangzhiloong.com/tags/git/</link>
+    <description>Recent content in git on 随笔漫谈</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 04 Feb 2020 16:44:28 +0800</lastBuildDate>
+    
+	<atom:link href="https://www.wangzhiloong.com/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Git 使用技巧</title>
+      <link>https://www.wangzhiloong.com/2020/git-cli/</link>
+      <pubDate>Tue, 04 Feb 2020 16:44:28 +0800</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2020/git-cli/</guid>
+      <description>git是什么  Git 是一个开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。
+Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件（两周开发出来的）。
+Git 与常用的版本控制工具 CVS, Subversion 等不同，它采用了分布式版本库的方式，不必服务器端软件支持。
+Git是目前世界上最先进的分布式版本控制系统。
+ 为什么用git  1、Git 是分布式的，SVN 不是：这是 Git 和其它非分布式的版本控制系统，例如 SVN，CVS 等，最核心的区别。
+2、Git 把内容按元数据方式存储，而 SVN 是按文件： 所有的资源控制系统都是把文件的元信息隐藏在一个类似 .svn、.cvs 等的文件夹里。
+3、Git 分支和 SVN 的分支不同： 分支在 SVN 中一点都不特别，其实它就是版本库中的另外一个目录。
+4、Git 没有一个全局的版本号，而 SVN 有： 目前为止这是跟 SVN 相比 Git 缺少的最大的一个特征。
+5、Git 的内容完整性要优于 SVN： Git 的内容存储使用的是 SHA-1 哈希算法。这能确保代码内容的完整性，确保在遇到磁盘故障和网络问题时降低对版本库的破坏。
+这么牛逼，为什么不用呢？
+ 怎么用git   git常用方法
+ 两种方式使用：
+http(https)方式：克隆项目时使用http(https)协议，需要输入gitlab的用户名和密码，不建议使用（每次push也都需要输入，比较麻烦，不过大多git客户端支持记录密码）。
+ssh方式：克隆项目时使用ssh协议，需要先在本机创建公钥，然后将公钥填充到gitlab&amp;ndash;&amp;gt;个人设置-&amp;gt;SSH Keys中。建议采用此方式，一劳永逸（除非换电脑）。
+   初次使用git的配置</description>
+    </item>
+    
+    <item>
+      <title>Docker安装Gitlab</title>
+      <link>https://www.wangzhiloong.com/2020/docker-gitlab-install/</link>
+      <pubDate>Fri, 17 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2020/docker-gitlab-install/</guid>
+      <description>一、 安装   docker安装
+  拉取镜像 docker pull gitlab/gitlab-ce:rc
+  使用docker-file创建容器
+##docker file version: &amp;#34;3&amp;#34; services: gitlab: image: &amp;#39;gitlab/gitlab-ce:rc&amp;#39; restart: always hostname: &amp;#39;git.abc.com&amp;#39; environment: GITLAB_OMNIBUS_CONFIG: | external_url &amp;#39;http://git.abc.com&amp;#39; gitlab_rails[&amp;#39;gitlab_shell_ssh_port&amp;#39;] = 2228 ports: - &amp;#39;127.0.0.1:8000:80&amp;#39; - &amp;#39;2228:22&amp;#39; volumes: - &amp;#39;/data/gitlab/config:/etc/gitlab&amp;#39; - &amp;#39;/data/gitlab/logs:/var/log/gitlab&amp;#39; - &amp;#39;/data/gitlab/data:/var/opt/gitlab&amp;#39; - &amp;#39;/etc/localtime:/etc/localtime:ro&amp;#39; ##项目启动命令## # docker-compose -f docker-gitlab-compose.yml -p gitlab up -d ##项目停止命令## # docker-compose -f docker-gitlab-compose.yml -p gitlab down     主机安装</description>
+    </item>
+    
+  </channel>
+</rss>

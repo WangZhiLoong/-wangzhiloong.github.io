@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>content-type on 随笔漫谈</title>
+    <link>https://www.wangzhiloong.com/tags/content-type/</link>
+    <description>Recent content in content-type on 随笔漫谈</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 22 Apr 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.wangzhiloong.com/tags/content-type/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>office 所有后缀对应的 content-type</title>
+      <link>https://www.wangzhiloong.com/2017/office-content-type/</link>
+      <pubDate>Sat, 22 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2017/office-content-type/</guid>
+      <description>后缀 MIME Type     .doc application/msword   .dot application/msword   .docx application/vnd.openxmlformats-officedocument.wordprocessingml.document   .dotx application/vnd.openxmlformats-officedocument.wordprocessingml.template   .docm application/vnd.ms-word.document.macroEnabled.12   .dotm application/vnd.ms-word.template.macroEnabled.12   .xls application/vnd.ms-excel   .xlt application/vnd.ms-excel   .xla application/vnd.ms-excel   .xlsx application/vnd.openxmlformats-officedocument.spreadsheetml.sheet   .xltx application/vnd.openxmlformats-officedocument.spreadsheetml.template   .xlsm application/vnd.ms-excel.sheet.macroEnabled.12   .xltm application/vnd.ms-excel.template.macroEnabled.12   .xlam application/vnd.ms-excel.addin.macroEnabled.12   .xlsb application/vnd.ms-excel.sheet.binary.macroEnabled.12   .</description>
+    </item>
+    
+  </channel>
+</rss>

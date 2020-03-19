@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="王志龙">
+  <meta name="description" content="技术历程记录，技术学习记录">
+  <meta name="keywords" content="技术博客，Linux，PHP，Mysql，Docker">
+  
+  <link rel="prev" href="https://www.wangzhiloong.com/2017/office-content-type/" />
+  <link rel="next" href="https://www.wangzhiloong.com/2019/linux-firewall-config/" />
+  <link rel="canonical" href="https://www.wangzhiloong.com/2018/mysql-show-cli/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           Mysql show 命令详解 | 随笔漫谈
+       
+  </title>
+  <meta name="title" content="Mysql show 命令详解 | 随笔漫谈">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/www.wangzhiloong.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "Mysql show 命令详解",
+    "headline" : "Mysql show 命令详解",
+    "description" : "Mysql show命令 说明     SHOW DATABASES 列出 MySQL Server上的数据库。   SHOW TABLES [FROM db_name] 列出数据库中的表。   SHOW TABLE STATUS [FROM db_name] 列出数据库的表信息，比较详细。   SHOW COLUMNS FROM tbl_name [FROM db_name] 列出表的列信息，同 SHOW FIELDS FROM tbl_name [FROM db_name]，DESCRIBE tbl_name [col_name]。   SHOW FULL COLUMNS FROM tbl_name [FROM db_name] 列出表的列信息，比较详细，同 SHOW FULL FIELDS FROM tbl_name [FROM db_name]。   SHOW INDEX FROM tbl_name [FROM db_name] 列出表的索引信息。   SHOW STATUS 列出 Server 的状态信息。   SHOW VARIABLES 列出 MySQL 系統参数值   SHOW PROCESSLIST 查看当前mysql查询进程   SHOW GRANTS FOR user 列出用户的授权命令    ##常用命令",
+    "inLanguage" : "",
+    "author" : "王志龙",
+    "creator" : "王志龙",
+    "publisher": "王志龙",
+    "accountablePerson" : "王志龙",
+    "copyrightHolder" : "王志龙",
+    "copyrightYear" : "2018",
+    "datePublished": "2018-01-02 00:00:00 \x2b0000 UTC",
+    "dateModified" : "2018-01-02 00:00:00 \x2b0000 UTC",
+    "url" : "https:\/\/www.wangzhiloong.com\/2018\/mysql-show-cli\/",
+    "wordCount" : "80",
+    "keywords" : [ "mysql", "随笔漫谈"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://www.wangzhiloong.com/">随笔漫谈</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">文章</a>
+                
+                <a class="menu-item" href="/categories/" title="">分类</a>
+                
+                <a class="menu-item" href="/tags/" title="">标签</a>
+                
+                <a class="menu-item" href="/about/" title="">关于我</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://www.wangzhiloong.com/">随笔漫谈</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">文章</a>
+                
+                <a class="menu-item" href="/categories/" title="">分类</a>
+                
+                <a class="menu-item" href="/tags/" title="">标签</a>
+                
+                <a class="menu-item" href="/about/" title="">关于我</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Mysql show 命令详解</h1>
+        <div class="post-meta">
+                写于
+                <span class="post-time">
+                <time datetime=2018-01-02 itemprop="datePublished">2018-01-02</time>
+                </span>
+                ·
+                分类： 
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://www.wangzhiloong.com/categories/linux/"> Linux </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <table>
+<thead>
+<tr>
+<th align="left">Mysql show命令</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">SHOW DATABASES</td>
+<td align="left">列出 MySQL Server上的数据库。</td>
+</tr>
+<tr>
+<td align="left">SHOW TABLES [FROM db_name]</td>
+<td align="left">列出数据库中的表。</td>
+</tr>
+<tr>
+<td align="left">SHOW TABLE STATUS [FROM db_name]</td>
+<td align="left">列出数据库的表信息，比较详细。</td>
+</tr>
+<tr>
+<td align="left">SHOW COLUMNS FROM tbl_name [FROM db_name]</td>
+<td align="left">列出表的列信息，同 SHOW FIELDS FROM tbl_name [FROM db_name]，DESCRIBE tbl_name [col_name]。</td>
+</tr>
+<tr>
+<td align="left">SHOW FULL COLUMNS FROM tbl_name [FROM db_name]</td>
+<td align="left">列出表的列信息，比较详细，同 SHOW FULL FIELDS FROM tbl_name [FROM db_name]。</td>
+</tr>
+<tr>
+<td align="left">SHOW INDEX FROM tbl_name [FROM db_name]</td>
+<td align="left">列出表的索引信息。</td>
+</tr>
+<tr>
+<td align="left">SHOW STATUS</td>
+<td align="left">列出 Server 的状态信息。</td>
+</tr>
+<tr>
+<td align="left">SHOW VARIABLES</td>
+<td align="left">列出 MySQL 系統参数值</td>
+</tr>
+<tr>
+<td align="left">SHOW PROCESSLIST</td>
+<td align="left">查看当前mysql查询进程</td>
+</tr>
+<tr>
+<td align="left">SHOW GRANTS FOR user</td>
+<td align="left">列出用户的授权命令</td>
+</tr>
+</tbody>
+</table>
+<p>##常用命令</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#查看存储引擎</span>
+show variables like <span style="color:#e6db74">&#39;%storage_engine%&#39;</span>;
+
+</code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>文章作者： </span>
+                <span>王志龙 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>链接：</span>
+                    <a href=https://www.wangzhiloong.com/2018/mysql-show-cli/>https://www.wangzhiloong.com/2018/mysql-show-cli/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>标签: 
+            
+            <span class="tag"><a href="https://www.wangzhiloong.com/tags/mysql/">
+                    #mysql</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">返回</a></span> · 
+                <span><a href="https://www.wangzhiloong.com/">首页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="https://www.wangzhiloong.com/2017/office-content-type/" class="prev" rel="prev" title="office 所有后缀对应的 content-type"><i class="iconfont icon-left"></i>&nbsp;office 所有后缀对应的 content-type</a>
+         
+        
+        <a href="https://www.wangzhiloong.com/2019/linux-firewall-config/" class="next" rel="next" title="Linux Firewall 配置">Linux Firewall 配置&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2017 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://www.wangzhiloong.com/">王志龙</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> &  Theme - <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

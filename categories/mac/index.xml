@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mac on 随笔漫谈</title>
+    <link>https://www.wangzhiloong.com/categories/mac/</link>
+    <description>Recent content in Mac on 随笔漫谈</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 07 Feb 2020 10:31:44 +0800</lastBuildDate>
+    
+	<atom:link href="https://www.wangzhiloong.com/categories/mac/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Mac中Docker访问宿主机服务</title>
+      <link>https://www.wangzhiloong.com/2020/docker-mac-pit/</link>
+      <pubDate>Fri, 07 Feb 2020 10:31:44 +0800</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2020/docker-mac-pit/</guid>
+      <description>Mac的docker并没有docker0这个桥接的网卡，所以无法通过容器的网关IP访问宿主机的服务，这个好坑。。。 查询了官方文档给的解释如下：
+ There is no docker0 bridge on macOS Because of the way networking is implemented in Docker Desktop for Mac, you cannot see a docker0 interface on the host. This interface is actually within the virtual machine.
+ 容器与宿主机的网络连接是通过Docker Desktop实现的，要访问只能通过域名host.docker.internal访问，官方说明如下：
+ I WANT TO CONNECT FROM A CONTAINER TO A SERVICE ON THE HOST
+The host has a changing IP address (or none if you have no network access).</description>
+    </item>
+    
+    <item>
+      <title>Mac环境配置</title>
+      <link>https://www.wangzhiloong.com/2017/mac-evn-config/</link>
+      <pubDate>Fri, 21 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.wangzhiloong.com/2017/mac-evn-config/</guid>
+      <description>命令行开发工具安装 xcode-select --install
+ 命令安装路径：/Library/Developer/CommandLineTools/usr/bin 安装命令列表： 2to3 2to3-3.7 DeRez GetFileInfo ResMerger Rez SetFile SplitForks ar as asa bison bitcode_strip c++ c89 c99 cc clang clang++ cmpdylib codesign_allocate codesign_allocate-p cpp ctags ctf_insert dsymutil dwarfdump dwarfdump-classic dyldinfo easy_install-3.7 flex flex++ g++ gatherheaderdoc gcc gcov git git-receive-pack git-shell git-upload-archive git-upload-pack gm4 gnumake gperf hdxml2manxml headerdoc2html indent install_name_tool ld lex libtool lipo lldb llvm-cov llvm-dwarfdump llvm-nm llvm-objdump llvm-otool llvm-profdata llvm-size lorder m4 make mig nm nm-classic nmedit objdump otool otool-classic pagestuff pip3 pip3.</description>
+    </item>
+    
+  </channel>
+</rss>

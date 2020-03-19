@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="王志龙">
+  <meta name="description" content="技术历程记录，技术学习记录">
+  <meta name="keywords" content="技术博客，Linux，PHP，Mysql，Docker">
+  
+  
+  <link rel="next" href="https://www.wangzhiloong.com/2017/mac-evn-config/" />
+  <link rel="canonical" href="https://www.wangzhiloong.com/2017/mysql-mysqldump/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           mysqldump 导出 数据&#43;结构&#43;函数&#43;存储过程 | 随笔漫谈
+       
+  </title>
+  <meta name="title" content="mysqldump 导出 数据&#43;结构&#43;函数&#43;存储过程 | 随笔漫谈">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "https:\/\/www.wangzhiloong.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "mysqldump 导出 数据\x2b结构\x2b函数\x2b存储过程",
+    "headline" : "mysqldump 导出 数据\x2b结构\x2b函数\x2b存储过程",
+    "description" : "mysql数据导出 #导出单个数据库：结构 无数据 [root@localhost ~]#mysqldump -h127.0.0.1 -uroot -p --opt --no-data db_name \x26gt;~\/db_name.sql #导出单个数据库：有数据 无结构 [root@localhost ~]#mysqldump -h127.0.0.1 -uroot -p --opt --no-create-info db_name \x26gt;~\/db_name.sql #导出单个数据库：结构\x2b数据 [root@localhost ~]#mysqldump -h127.0.0.1 -uroot -p --opt db_name \x26gt;~\/db_name.sql #导出单个数据库：结构\x2b数据\x2b函数\x2b存储过程 [root@localhost ~]#mysqldump -h127.0.0.1 -uroot -p --opt -R db_name \x26gt;~\/db_name.sql #导出多个数据库：结构 [root@localhost ~]#mysqldump -h127.0.0.1 -uroot -p --opt --databases db_name1 db_name2 \x26gt;~\/db_name.sql #导出单个表：结构 无数据 [root@localhost ~]#mysqldump -h127.0.0.1 -uroot -p --opt --no-data -d db_name table\x26gt;~\/table_name.sql #导出单个表：结构 包含数据 [root@localhost ~]#mysqldump -h127.0.0.1 -uroot -p --opt dbname tablename\x26gt;～\/tablename.",
+    "inLanguage" : "",
+    "author" : "王志龙",
+    "creator" : "王志龙",
+    "publisher": "王志龙",
+    "accountablePerson" : "王志龙",
+    "copyrightHolder" : "王志龙",
+    "copyrightYear" : "2017",
+    "datePublished": "2017-03-14 00:00:00 \x2b0000 UTC",
+    "dateModified" : "2017-03-14 00:00:00 \x2b0000 UTC",
+    "url" : "https:\/\/www.wangzhiloong.com\/2017\/mysql-mysqldump\/",
+    "wordCount" : "111",
+    "keywords" : [ "mysql","mysqldump", "随笔漫谈"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://www.wangzhiloong.com/">随笔漫谈</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">文章</a>
+                
+                <a class="menu-item" href="/categories/" title="">分类</a>
+                
+                <a class="menu-item" href="/tags/" title="">标签</a>
+                
+                <a class="menu-item" href="/about/" title="">关于我</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="https://www.wangzhiloong.com/">随笔漫谈</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">文章</a>
+                
+                <a class="menu-item" href="/categories/" title="">分类</a>
+                
+                <a class="menu-item" href="/tags/" title="">标签</a>
+                
+                <a class="menu-item" href="/about/" title="">关于我</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">mysqldump 导出 数据&#43;结构&#43;函数&#43;存储过程</h1>
+        <div class="post-meta">
+                写于
+                <span class="post-time">
+                <time datetime=2017-03-14 itemprop="datePublished">2017-03-14</time>
+                </span>
+                ·
+                分类： 
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="https://www.wangzhiloong.com/categories/linux/"> Linux </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h2 id="mysql数据导出">mysql数据导出</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#导出单个数据库：结构 无数据</span>
+<span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e">#mysqldump -h127.0.0.1 -uroot -p --opt --no-data db_name &gt;~/db_name.sql</span>
+
+<span style="color:#75715e">#导出单个数据库：有数据 无结构</span>
+<span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e">#mysqldump -h127.0.0.1 -uroot -p --opt --no-create-info db_name &gt;~/db_name.sql</span>
+
+<span style="color:#75715e">#导出单个数据库：结构+数据</span>
+<span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e">#mysqldump -h127.0.0.1 -uroot -p --opt db_name &gt;~/db_name.sql</span>
+
+<span style="color:#75715e">#导出单个数据库：结构+数据+函数+存储过程</span>
+<span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e">#mysqldump -h127.0.0.1 -uroot -p --opt -R db_name &gt;~/db_name.sql</span>
+
+
+<span style="color:#75715e">#导出多个数据库：结构</span>
+<span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e">#mysqldump -h127.0.0.1 -uroot -p --opt --databases db_name1 db_name2 &gt;~/db_name.sql</span>
+
+
+<span style="color:#75715e">#导出单个表：结构 无数据</span>
+<span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e">#mysqldump -h127.0.0.1 -uroot -p --opt --no-data -d db_name table&gt;~/table_name.sql</span>
+
+
+<span style="color:#75715e">#导出单个表：结构 包含数据</span>
+<span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e">#mysqldump -h127.0.0.1 -uroot -p --opt dbname  tablename&gt;～/tablename.sql</span>
+</code></pre></div><h2 id="mysql数据导入">mysql数据导入：</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e">#mysql -u root -p</span> 
+<span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e">#use  要导入的数据库</span>
+<span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e">#source /home/1.sql</span>
+或者
+<span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e">#mysql -u root -p&lt; /home/1.sql</span>
+</code></pre></div><blockquote>
+<p>注：
+&ndash;opt==&ndash;add-drop-table + &ndash;add-locks + &ndash;create-options + &ndash;disables-keys + &ndash;extended-insert + &ndash;lock-tables + &ndash;quick + &ndash;set+charset</p>
+<p>默认使用&ndash;opt，&ndash;skip-opt禁用&ndash;opt参数</p>
+</blockquote>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>文章作者： </span>
+                <span>王志龙 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>链接：</span>
+                    <a href=https://www.wangzhiloong.com/2017/mysql-mysqldump/>https://www.wangzhiloong.com/2017/mysql-mysqldump/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>标签: 
+            
+            <span class="tag"><a href="https://www.wangzhiloong.com/tags/mysql/">
+                    #mysql</a></span>
+            
+            <span class="tag"><a href="https://www.wangzhiloong.com/tags/mysqldump/">
+                    #mysqldump</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">返回</a></span> · 
+                <span><a href="https://www.wangzhiloong.com/">首页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+         
+        
+        <a href="https://www.wangzhiloong.com/2017/mac-evn-config/" class="next" rel="next" title="Mac环境配置">Mac环境配置&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2017 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="https://www.wangzhiloong.com/">王志龙</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> &  Theme - <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>
